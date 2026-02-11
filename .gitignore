@@ -1,0 +1,16 @@
+node_modules/
+.env
+dist/
+build/
+demo.txt
+logs
+
+
+# OS files  doubt
+.DS_Store
+Thumbs.db
+
+
+
+
+
