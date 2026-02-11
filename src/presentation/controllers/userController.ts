@@ -125,7 +125,6 @@ export class UserController {
 
             const result = await this._googleLoginUsecase.execute(idToken)
             const message = result.isNewUser ? MESSAGES.GOOGLE_SIGNUP_SUCCESS : MESSAGES.GOOGLE_LOGIN_SUCCESS
-            // console.log(`Google login successful`, result.user.email)
             logger.info(`Google login successful`, result.user.email)
 
 

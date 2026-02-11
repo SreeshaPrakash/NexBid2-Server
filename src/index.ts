@@ -38,7 +38,6 @@ export class App {
 
 
         this.app.listen(PORT, () => {
-            // console.log(`Nexbid server running on port , ${PORT}`)
             logger.info(`Nexbid server running on port , ${PORT}`)
         })
     }

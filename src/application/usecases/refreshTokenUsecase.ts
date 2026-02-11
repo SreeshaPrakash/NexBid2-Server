@@ -44,7 +44,6 @@ export class RefreshTokenUsecase implements IRefreshTokenUsecase {
 
             const newAccessToken = this._jwtService.generateAccessToken(tokenPayload)
             const newRefreshToken = this._jwtService.generateRefreshToken(tokenPayload)
-            // console.log(`Token refreshed for user :  ${user.email}`)
              logger.info(`Token refreshed for user :  ${user.email}`)
 
             return {

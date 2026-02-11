@@ -14,7 +14,6 @@ export class OtpService implements IOtpService {
 
     async sendOtp(email: string): Promise<void> {
         const otp = this.generateOtp()
-        // console.log(` otp created `)
          logger.info(` otp created `)
 
         // await redis.set(`otp:${email}` , otp , { EX : this.OTP_TTL } )
@@ -37,7 +36,6 @@ export class OtpService implements IOtpService {
             text: `Your OTP is ${otp}. It is valid for 10 minutes.`
 
         })
-        // console.log(`OTP send & stored for : ${email}`)
         logger.info(`OTP send & stored for : ${email}`)
         console.log(`otp to input : ${otp}`)
     }
@@ -62,7 +60,6 @@ export class OtpService implements IOtpService {
     async resendOtp(email: string): Promise<void> {
 
         await redis.del(`otp:${email}`)
-        // console.log(`old otp cleared`)
         logger.info(`old otp cleared`)
         await this.sendOtp(email)
     }

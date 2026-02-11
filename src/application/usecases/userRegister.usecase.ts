@@ -23,7 +23,6 @@ export class RegisterUsecase implements IUserRegisterUsecase {
 
         const tempUserKey = `tempUser:${userData.email}`
         await redis.set(tempUserKey, JSON.stringify(userData), "EX", this.Temp_USER_TTL)
-        // console.log(` temporary userdata stored in redis for : ${userData.email}`)
         logger.info(` temporary userdata stored in redis for : ${userData.email}`)
 
 

@@ -21,7 +21,6 @@ export class VerifyOtpUsecase implements IVerifyOtpUsecase {
         const { email, otp } = verifyData;
         const isValid = await this._otpService.verifyOtp(email, otp)
 
-        // console.log('otp verification result : ', isValid)
          logger.info('otp verification result : ', isValid)
 
 
@@ -54,7 +53,6 @@ export class VerifyOtpUsecase implements IVerifyOtpUsecase {
         const savedUser = await this._userRepo.save(newUser)
         await redis.del(tempUserKey)
 
-        // console.log(`User verified and saved : ${savedUser.email}`)
         logger.info(`User verified and saved : ${savedUser.email}`)
 
 

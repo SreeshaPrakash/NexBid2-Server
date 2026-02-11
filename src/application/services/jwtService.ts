@@ -58,7 +58,6 @@ export class JwtService implements IJwtService {
     try {
       return jwt.verify(token, this._accessTokenSecret) as TokenPayload;
     } catch (error) {
-      // console.log('Access token verification failed');
       logger.error('Access token verification failed');
       throw error;
     }
@@ -70,7 +69,6 @@ export class JwtService implements IJwtService {
     try {
       return jwt.verify(token, this._refreshTokenSecret) as TokenPayload;
     } catch (error) {
-      // console.log("Refresh token verification failed");
       logger.error("Refresh token verification failed");
       throw error;
     }

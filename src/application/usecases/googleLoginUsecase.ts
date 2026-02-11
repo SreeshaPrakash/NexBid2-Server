@@ -38,7 +38,6 @@ export class GoogleLoginUsecase implements IGoogleLoginUsecase {
             }
 
             user = await this._userRepo.save(newUser)
-            // console.log(`New google user created : `, user.email)
             logger.info(`New google user created : `, user.email)
 
         } else {
@@ -51,7 +50,6 @@ export class GoogleLoginUsecase implements IGoogleLoginUsecase {
                     googleId: googleUser.googleId,
                     isEmailVerified: true
                 })
-                // console.log(`Linked Google account to existing user :`, user.email)
                 logger.info(`Linked Google account to existing user :`, user.email)
             }
         }
@@ -66,7 +64,6 @@ export class GoogleLoginUsecase implements IGoogleLoginUsecase {
         const accessToken = this._jwtService.generateAccessToken(TokenPayload)
         const refreshToken = this._jwtService.generateRefreshToken(TokenPayload)
 
-        // console.log(`Google login successful:`, user.email)
          logger.info(`Google login successful:`, user.email)
 
         return {

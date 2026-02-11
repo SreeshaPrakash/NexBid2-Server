@@ -53,7 +53,6 @@ export class ResetPasswordUsecase implements IResetPasswordUsecase {
             password: hashedPassword
         })
 
-        // console.log(`Password reset successful for : ${email}`);
         logger.info(`Password reset successful for : ${email}`);
         return true;
     }

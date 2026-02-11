@@ -32,7 +32,6 @@ export class ForgotPasswordUsecase implements IForgotPasswordUsecase {
         }
 
         await this._otpService.resendOtp(email)
-        // console.log(`Password reset otp sent to ${email}`)
         logger.info(`Password reset otp sent to ${email}`)
         return true
 

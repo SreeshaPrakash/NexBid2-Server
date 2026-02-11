@@ -29,7 +29,6 @@ export class GoogleAuthService implements IGoogleAuthservice {
                 name: payload.name || '',
                 isEmailVerified: payload.email_verified || false
             }
-            // console.log(`google user verified :`, googleUserInfo.email)
              logger.info(`google user verified :`, googleUserInfo.email)
             return googleUserInfo
 
