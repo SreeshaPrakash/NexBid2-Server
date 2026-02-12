@@ -1,3 +1,5 @@
+import { injectable, inject } from 'tsyringe';
+
 import { TokenPayload } from './../services/jwtService';
 import { IUserRepository } from "../../domain/interfaces/repositoryInterface/user/IUserRepository";
 import { IJwtService } from "../../domain/interfaces/serviceInterface/jwtServiceInterface";
@@ -9,13 +11,13 @@ import { UserRole } from '../../shared/roles';
 import { HttpStatusCode } from '../../shared/httpStatusCode';
 import { logger } from '../../infrastructure/logging/logger';
 
-
+@injectable()
 export class RefreshTokenUsecase implements IRefreshTokenUsecase {
 
     constructor(
-        private _jwtService: IJwtService,
-        private _userRepo: IUserRepository
-    ) { }
+        @inject("IJwtService") private _jwtService: IJwtService,
+        @inject("IUserRepository") private _userRepo: IUserRepository
+    ) {}
 
     async execute(refreshToken: string): Promise<RefreshTokenResponse> {
         if (!refreshToken) {

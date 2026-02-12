@@ -1,3 +1,5 @@
+import { injectable } from 'tsyringe';
+
 import jwt from 'jsonwebtoken';
 import { IJwtService } from './../../domain/interfaces/serviceInterface/jwtServiceInterface';
 import { TokenType } from '../../shared/token';
@@ -16,7 +18,7 @@ export interface TokenPayload {
   type: TokenType
 }
 
-
+@injectable()
 export class JwtService implements IJwtService {
   private _accessTokenSecret: string;
   private _refreshTokenSecret: string;

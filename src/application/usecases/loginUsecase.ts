@@ -1,3 +1,4 @@
+import { injectable, inject } from "tsyringe";
 
 import { IUserRepository } from "../../domain/interfaces/repositoryInterface/user/IUserRepository";
 import { IJwtService } from "../../domain/interfaces/serviceInterface/jwtServiceInterface";
@@ -7,11 +8,13 @@ import { UserRole } from "../../shared/roles";
 import { LoginDTO, LoginResponse } from "../dto/auth.dto";
 import bcrypt from "bcrypt";
 
+
+@injectable()
 export class LoginUsecase implements ILoginUsecase {
 
     constructor (
-        private _userRepo : IUserRepository,
-        private _jwtService : IJwtService
+        @inject("IUserRepository") private _userRepo : IUserRepository,
+        @inject("IJwtService") private _jwtService : IJwtService
     ) {}
 
     async execute(LoginData: LoginDTO): Promise<LoginResponse> {
@@ -68,3 +71,5 @@ export class LoginUsecase implements ILoginUsecase {
 
     }
 }
+
+

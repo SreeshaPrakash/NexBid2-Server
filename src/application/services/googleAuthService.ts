@@ -1,9 +1,11 @@
+import { autoInjectable } from "tsyringe";
 
 import { OAuth2Client } from "google-auth-library";
 import { GoogleUserInfo, IGoogleAuthservice } from "../../domain/interfaces/serviceInterface/IGoogleAuthServiceInterface";
 import { UnauthorizedError } from "../../shared/errorConstants";
 import { logger } from "../../infrastructure/logging/logger";
 
+@autoInjectable()
 export class GoogleAuthService implements IGoogleAuthservice {
     private client: OAuth2Client
 

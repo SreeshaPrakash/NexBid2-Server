@@ -1,3 +1,5 @@
+import { injectable , inject} from 'tsyringe';
+
 import { User } from './../../domain/entities/User';
 import { RefreshTokenUsecase } from './../../application/usecases/refreshTokenUsecase';
 import { IUserRegisterUsecase } from "../../domain/interfaces/usecaseInterface/user/IUserRegisterUsecase";
@@ -15,18 +17,20 @@ import { IForgotPasswordUsecase } from "../../domain/interfaces/usecaseInterface
 import { IResetPasswordUsecase } from "../../domain/interfaces/usecaseInterface/user/IResetPasswordUsecase";
 import { IRefreshTokenUsecase } from "../../domain/interfaces/usecaseInterface/user/IRefreshTokenUsecase";
 import { logger } from '../../infrastructure/logging/logger';
+
+@injectable()
 export class UserController {
 
     constructor(
-        private _userRegisterUsecase: IUserRegisterUsecase,
-        private _verifyOtpUsecase: IVerifyOtpUsecase,
-        private _loginUsecase: ILoginUsecase,
-        private _resendOtpUsecase: IResendOtpusecase,
-        private _googleLoginUsecase: IGoogleLoginUsecase,
-        private _forgotPasswordUsecase: IForgotPasswordUsecase,
-        private _resetPasswordUsecase: IResetPasswordUsecase,
-        private _refreshTokenUsecase: IRefreshTokenUsecase
-    ) { }
+        @inject("IUserRegisterUsecase") private _userRegisterUsecase: IUserRegisterUsecase,
+        @inject("IVerifyOtpUsecase") private _verifyOtpUsecase: IVerifyOtpUsecase,
+        @inject("ILoginUsecase") private _loginUsecase: ILoginUsecase,
+        @inject("IResendOtpusecase") private _resendOtpUsecase: IResendOtpusecase,
+        @inject("IGoogleLoginUsecase") private _googleLoginUsecase: IGoogleLoginUsecase,
+        @inject("IForgotPasswordUsecase") private _forgotPasswordUsecase: IForgotPasswordUsecase,
+        @inject("IResetPasswordUsecase") private _resetPasswordUsecase: IResetPasswordUsecase,
+        @inject("IRefreshTokenUsecase") private _refreshTokenUsecase: IRefreshTokenUsecase
+    ) {}
 
     signup = async (req: Request, res: Response) => {
 
@@ -85,7 +89,6 @@ export class UserController {
         }
     }
 
-
     resendOtp = async (req: Request, res: Response) => {
         try {
 
@@ -111,7 +114,6 @@ export class UserController {
 
         }
     }
-
 
     googleLogin = async (req: Request, res: Response) => {
         try {
@@ -145,7 +147,6 @@ export class UserController {
         }
     }
 
-
     forgotPassword = async (req: Request, res: Response) => {
         try {
             const { email } = req.body
@@ -169,7 +170,6 @@ export class UserController {
         }
     }
 
-
     resetPassword = async (req: Request, res: Response) => {
 
         try {
@@ -186,7 +186,6 @@ export class UserController {
             })
         }
     }
-
 
     refreshToken = async (req: Request, res: Response) => {
         try {

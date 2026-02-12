@@ -1,16 +1,15 @@
-
+import { injectable, inject } from "tsyringe";
 import { IUserRepository } from "../../domain/interfaces/repositoryInterface/user/IUserRepository";
 import { IOtpService } from "../../domain/interfaces/serviceInterface/otpServiceInterface";
 import { IResendOtpusecase } from "../../domain/interfaces/usecaseInterface/user/IResendOtpUsecase";
 import { ConflictError } from "../../shared/errorConstants";
 
-
+@injectable()
 export class ResendOtpUsecase implements IResendOtpusecase {
-       
 
     constructor(
-        private _userRepo : IUserRepository,
-        private _otpService : IOtpService
+        @inject("IUserRepository") private _userRepo : IUserRepository,
+        @inject("IOtpService") private _otpService : IOtpService
     ) {}
 
         async execute(email: string): Promise<boolean> {

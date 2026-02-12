@@ -1,9 +1,13 @@
+import { injectable } from "tsyringe";
+
 import { IOtpService } from "../../domain/interfaces/serviceInterface/otpServiceInterface";
 import redis from '../../config/redis'
 import nodemailer from 'nodemailer'
 import { logger } from "../../infrastructure/logging/logger";
 
 
+
+@injectable()
 export class OtpService implements IOtpService {
     private OTP_TTL = 600
 

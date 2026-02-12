@@ -1,9 +1,12 @@
+import { injectable } from 'tsyringe';
+
 import { BaseRepository } from './BaseRepository';
 import { User } from '../../domain/entities/User';
 import { userModel } from '../database/UserModel';
 import { IUserRepository } from './../../domain/interfaces/repositoryInterface/user/IUserRepository';
 
 
+@injectable()
 export class UserRepository  extends BaseRepository<User>  implements IUserRepository  {
 
     constructor(){

@@ -1,3 +1,5 @@
+import { injectable, inject } from 'tsyringe';
+
 import bcrypt from 'bcrypt';
 import { IUserRepository } from '../../domain/interfaces/repositoryInterface/user/IUserRepository';
 import { IOtpService } from '../../domain/interfaces/serviceInterface/otpServiceInterface';
@@ -6,12 +8,12 @@ import { ResetPasswordDTO } from '../dto/auth.dto';
 import { IResetPasswordUsecase } from './../../domain/interfaces/usecaseInterface/user/IResetPasswordUsecase';
 import { logger } from '../../infrastructure/logging/logger';
 
-
+@injectable()
 export class ResetPasswordUsecase implements IResetPasswordUsecase {
 
     constructor(
-        private _userRepo: IUserRepository,
-        private _otpService: IOtpService
+        @inject("IUserRepository") private _userRepo: IUserRepository,
+        @inject("IOtpService") private _otpService: IOtpService
     ) { }
 
 

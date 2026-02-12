@@ -1,3 +1,5 @@
+import { injectable, inject } from 'tsyringe';
+
 import { User } from './../../domain/entities/User';
 import redis from "../../config/redis";
 import bcrypt from "bcrypt";
@@ -8,13 +10,13 @@ import { RegisterDTO, VerifyOtpDTO, VerifyOtpResponse } from "../dto/auth.dto";
 import { UserRole } from '../../shared/roles';
 import { logger } from '../../infrastructure/logging/logger';
 
-
+@injectable()
 export class VerifyOtpUsecase implements IVerifyOtpUsecase {
 
     constructor(
-        private _userRepo: IUserRepository,
-        private _otpService: IOtpService,
-    ) { }
+        @inject("IUserRepository") private _userRepo: IUserRepository,
+        @inject("IOtpService") private _otpService: IOtpService,
+    ) {} 
 
     async execute(verifyData: VerifyOtpDTO): Promise<VerifyOtpResponse> {
 

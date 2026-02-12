@@ -1,3 +1,5 @@
+
+import { inject, injectable } from "tsyringe";
 import { IUserRepository } from './../../domain/interfaces/repositoryInterface/user/IUserRepository';
 import { RegisterDTO } from '../dto/auth.dto';
 import { IUserRegisterUsecase } from '../../domain/interfaces/usecaseInterface/user/IUserRegisterUsecase';
@@ -5,11 +7,13 @@ import { IOtpService } from '../../domain/interfaces/serviceInterface/otpService
 import redis from '../../config/redis';
 import { logger } from '../../infrastructure/logging/logger';
 
+
+@injectable()
 export class RegisterUsecase implements IUserRegisterUsecase {
     private Temp_USER_TTL = 600
     constructor(
-        private _userRepo: IUserRepository,
-        private _otpService: IOtpService
+        @inject("IUserRepository") private _userRepo: IUserRepository,
+        @inject("IOtpService") private _otpService: IOtpService
     ) { }
 
     async execute(userData: RegisterDTO): Promise<boolean> {

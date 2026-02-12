@@ -1,3 +1,7 @@
+
+import "reflect-metadata"; //for tsyringe to read class
+
+
 import express, { Express } from 'express';
 import { ConnectDB } from './infrastructure/db/ConnectDb';
 import cors from "cors";

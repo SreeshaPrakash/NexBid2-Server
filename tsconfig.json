@@ -7,7 +7,7 @@
     "strict": true,
     "esModuleInterop": true,
     "skipLibCheck": true,
-    "experimentalDecorators": true, // Required for tsyringe and TypeORM/etc
+    "experimentalDecorators": true, // Required for tsyringe 
     "emitDecoratorMetadata": true    // Required for tsyringe
   }
 }

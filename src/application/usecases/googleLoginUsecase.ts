@@ -1,3 +1,5 @@
+import { injectable, inject } from 'tsyringe';
+
 import { TokenPayload } from './../services/jwtService';
 import { User } from "../../domain/entities/User";
 import { IUserRepository } from "../../domain/interfaces/repositoryInterface/user/IUserRepository";
@@ -9,12 +11,13 @@ import { GoogleLoginResponse } from "../dto/auth.dto";
 import { UserRole } from '../../shared/roles';
 import { logger } from '../../infrastructure/logging/logger';
 
+@injectable()
 export class GoogleLoginUsecase implements IGoogleLoginUsecase {
     constructor(
-        private _googleAuthService: IGoogleAuthservice,
-        private _userRepo: IUserRepository,
-        private _jwtService: IJwtService
-    ) { }
+        @inject("IGoogleAuthservice") private _googleAuthService: IGoogleAuthservice,
+        @inject("IUserRepository") private _userRepo: IUserRepository,
+        @inject("IJwtService") private _jwtService: IJwtService
+    ){}
 
     async execute(idToken: string): Promise<GoogleLoginResponse> {
         const googleUser = await this._googleAuthService.verifyGoogleToken(idToken)
@@ -64,7 +67,7 @@ export class GoogleLoginUsecase implements IGoogleLoginUsecase {
         const accessToken = this._jwtService.generateAccessToken(TokenPayload)
         const refreshToken = this._jwtService.generateRefreshToken(TokenPayload)
 
-         logger.info(`Google login successful:`, user.email)
+        logger.info(`Google login successful:`, user.email)
 
         return {
             user: {
@@ -81,3 +84,4 @@ export class GoogleLoginUsecase implements IGoogleLoginUsecase {
     }
 
 }
+
