@@ -1,18 +1,19 @@
 
 
-import mongoose, {Schema} from "mongoose";
-const UserSchema = new Schema (
+import mongoose, { Schema } from "mongoose";
+const UserSchema = new Schema(
     {
-        name : {type : String, required: true},
-        email : {type : String, required : true, unique : true},
-        password : { type : String},
-        googleId : { type: String },
-        roles : {type : [String], default : ['client']},
-        phone : {type : String},
-        isEmailVerified : { type : Boolean, default : false },
-    }, 
+        name: { type: String, required: true },
+        email: { type: String, required: true, unique: true },
+        password: { type: String },
+        googleId: { type: String },
+        roles: { type: [String], default: ['client'] },
+        phone: { type: String },
+        isEmailVerified: { type: Boolean, default: false },
+        isBlocked: { type: Boolean, default: false }
+    },
     {
-        timestamps : true
+        timestamps: true
     }
 )
 

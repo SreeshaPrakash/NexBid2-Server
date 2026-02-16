@@ -7,32 +7,49 @@ import { GoogleLoginUsecase } from "../../../application/usecases/googleLoginUse
 import { ForgotPasswordUsecase } from "../../../application/usecases/forgotPasswordUsecase";
 import { ResetPasswordUsecase } from "../../../application/usecases/resetPasswordUsecase";
 import { RefreshTokenUsecase } from "../../../application/usecases/refreshTokenUsecase";
+import { SwitchRoleusecase } from "../../../application/usecases/switchRoleUsecase";
+import { AdminLoginUsecase } from "../../../application/usecases/Admin/AdminLoginUsecase";
+import { GetAllUsersUsecase } from "../../../application/usecases/Admin/getAllUsers";
+import { GetUserByIdUsecase } from "../../../application/usecases/Admin/GetUserByIdUsecase";
+import { UpdateUserStatusUsecase } from "../../../application/usecases/Admin/UpdateUserStatusUsecase";
+import { CreateFreelancerProfileUsecase } from "../../../application/usecases/Freelancer/CreateFreelancerProfileUsecase";
+import { FreelancerProfileUsecase } from "../../../application/usecases/Freelancer/FreelancerProfileUsecase";
+import { RequestFreelancerVerificationUsecase } from "../../../application/usecases/Freelancer/RequestFreelancerVerificationUsecase";
 
 export class UsecaseRegistrar {
-    static registerUsecae() {
+    static registerUsecase() {
 
-        container.register('IUserRegisterUsecase',{  useClass : RegisterUsecase })
+        container.register('IUserRegisterUsecase', { useClass: RegisterUsecase })
 
-        container.register("IVerifyOtpUsecase", { useClass : VerifyOtpUsecase})
+        container.register("IVerifyOtpUsecase", { useClass: VerifyOtpUsecase })
 
-        container.register("IResendOtpusecase", { useClass : ResendOtpUsecase})
+        container.register("IResendOtpusecase", { useClass: ResendOtpUsecase })
 
-        container.register("ILoginUsecase", { useClass : LoginUsecase})
+        container.register("ILoginUsecase", { useClass: LoginUsecase })
 
-        container.register("IGoogleLoginUsecase", { useClass : GoogleLoginUsecase})
+        container.register("IGoogleLoginUsecase", { useClass: GoogleLoginUsecase })
 
-        container.register("IForgotPasswordUsecase", { useClass : ForgotPasswordUsecase})
+        container.register("IForgotPasswordUsecase", { useClass: ForgotPasswordUsecase })
 
-        container.register("IResetPasswordUsecase", { useClass : ResetPasswordUsecase})
+        container.register("IResetPasswordUsecase", { useClass: ResetPasswordUsecase })
 
-        container.register("IRefreshTokenUsecase", { useClass : RefreshTokenUsecase})
+        container.register("IRefreshTokenUsecase", { useClass: RefreshTokenUsecase })
 
+        container.register("ISwitchRoleUsecase", { useClass: SwitchRoleusecase })
 
+        container.register("IAdminLoginUsecase", { useClass: AdminLoginUsecase })
 
+        container.register("IGetAllUsersUsecase", { useClass: GetAllUsersUsecase })
 
+        container.register("IGetUserByIdUsecase", { useClass: GetUserByIdUsecase })
 
+        container.register("IUpdateUserStatusUsecase", { useClass: UpdateUserStatusUsecase })
 
+        container.register("ICreateFreelancerProfileUsecase", { useClass: CreateFreelancerProfileUsecase })
 
+        container.register("IGetFreelancerUsecase", { useClass: FreelancerProfileUsecase })
+
+        container.register("IRequestFreelancerVerificationUsecase", { useClass: RequestFreelancerVerificationUsecase })
 
     }
 }

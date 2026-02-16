@@ -5,11 +5,12 @@ export interface Freelancer extends User {
     userId : string
     title : string
     bio : string
-    skills : string
+    skills : string[]
     rating : number
     totalReview : number
     completedProjects : number  
-    status : 'unverified' | 'pending' | 'verified' | 'rejected'
+    status : 'unverified' | 'pending' | 'verified' | 'rejected',
+    isActive : boolean,
     rejectionReason : string
     gitHubUrl : string
     linkedinUrl : string

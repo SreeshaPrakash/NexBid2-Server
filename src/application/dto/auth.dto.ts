@@ -1,9 +1,9 @@
 
 export interface RegisterDTO {
-    name : string
-    email : string
-    password : string
-    // phone ?: number
+  name: string
+  email: string
+  password: string
+  // phone ?: number
 }
 
 
@@ -21,8 +21,8 @@ export interface VerifyOtpResponse {
     roles: string[];
     isEmailVerified: boolean;
   };
-//   accessToken: string;
-//   refreshToken: string;
+  //   accessToken: string;
+  //   refreshToken: string;
 }
 
 
@@ -52,26 +52,51 @@ export interface AuthResponse {
 
 
 export interface GoogleLoginResponse {
-  user :{
+  user: {
     id: string
-    email : string
-    name : string
-    roles : string[]
-    isEmailVerified : boolean
+    email: string
+    name: string
+    roles: string[]
+    isEmailVerified: boolean
   }
-  accessToken : string,
-  refreshToken : string,
-  isNewUser : boolean
+  accessToken: string,
+  refreshToken: string,
+  isNewUser: boolean
 }
 
-export interface  ResetPasswordDTO {
-  email : string,
-  otp : string,
-  newPassword : string
+export interface ResetPasswordDTO {
+  email: string,
+  otp: string,
+  newPassword: string
 }
 
 
 export interface RefreshTokenResponse {
-  accessToken : string,
-  refreshToken : string
+  accessToken: string,
+  refreshToken: string
+}
+
+export interface SwitchRoleResponse {
+  accessToken: string,
+  refreshToken: string,
+  hasProfile: boolean
+}
+
+
+export interface UserDto {
+  id: string;
+  name: string;
+  email: string;
+  phone?: number;
+  role?: "client" | "freelancer" | "admin";
+  roles: string[];
+  status?: "active" | "block";
+  isEmailVerified?: boolean;
+  isBlocked?: boolean;
+  imageUrl?: string;
+  profileImage?: string;
+  createdAt?: Date;
+  updatedAt?: Date;
+  lastLogin?: Date;
+  isAdmin?: boolean;
 }

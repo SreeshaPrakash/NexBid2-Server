@@ -9,7 +9,7 @@ import { logger } from "../../infrastructure/logging/logger";
 
 @injectable()
 export class OtpService implements IOtpService {
-    private OTP_TTL = 600
+    private OTP_TTL = 120
 
     generateOtp(length: number = 6): string {
         return Array.from({ length }, () => Math.floor(Math.random() * 10)).join('')
@@ -18,7 +18,7 @@ export class OtpService implements IOtpService {
 
     async sendOtp(email: string): Promise<void> {
         const otp = this.generateOtp()
-         logger.info(` otp created `)
+        logger.info(` otp created `)
 
         // await redis.set(`otp:${email}` , otp , { EX : this.OTP_TTL } )
         await redis.set(`otp:${email}`, otp, 'EX', this.OTP_TTL)

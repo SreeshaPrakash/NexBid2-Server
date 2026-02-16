@@ -16,14 +16,14 @@ export class VerifyOtpUsecase implements IVerifyOtpUsecase {
     constructor(
         @inject("IUserRepository") private _userRepo: IUserRepository,
         @inject("IOtpService") private _otpService: IOtpService,
-    ) {} 
+    ) { }
 
     async execute(verifyData: VerifyOtpDTO): Promise<VerifyOtpResponse> {
 
         const { email, otp } = verifyData;
         const isValid = await this._otpService.verifyOtp(email, otp)
 
-         logger.info('otp verification result : ', isValid)
+        logger.info('otp verification result : ', isValid)
 
 
         if (!isValid) {

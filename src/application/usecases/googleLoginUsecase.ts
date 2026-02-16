@@ -1,6 +1,5 @@
 import { injectable, inject } from 'tsyringe';
 
-import { TokenPayload } from './../services/jwtService';
 import { User } from "../../domain/entities/User";
 import { IUserRepository } from "../../domain/interfaces/repositoryInterface/user/IUserRepository";
 import { IGoogleAuthservice } from "../../domain/interfaces/serviceInterface/IGoogleAuthServiceInterface";
@@ -17,7 +16,7 @@ export class GoogleLoginUsecase implements IGoogleLoginUsecase {
         @inject("IGoogleAuthservice") private _googleAuthService: IGoogleAuthservice,
         @inject("IUserRepository") private _userRepo: IUserRepository,
         @inject("IJwtService") private _jwtService: IJwtService
-    ){}
+    ) { }
 
     async execute(idToken: string): Promise<GoogleLoginResponse> {
         const googleUser = await this._googleAuthService.verifyGoogleToken(idToken)

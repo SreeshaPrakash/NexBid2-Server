@@ -1,22 +1,18 @@
-import { injectable , inject} from 'tsyringe';
+import { injectable, inject } from 'tsyringe';
 
-import { User } from './../../domain/entities/User';
-import { RefreshTokenUsecase } from './../../application/usecases/refreshTokenUsecase';
 import { IUserRegisterUsecase } from "../../domain/interfaces/usecaseInterface/user/IUserRegisterUsecase";
 import { Request, Response } from "express";
 import { HttpStatusCode } from "../../shared/httpStatusCode";
 import { MESSAGES } from "../../shared/messages";
 import { IVerifyOtpUsecase } from "../../domain/interfaces/usecaseInterface/user/IVerifyOtpUsecase";
-import { success } from "zod";
 import { ILoginUsecase } from "../../domain/interfaces/usecaseInterface/user/ILoginUsecase";
-import { tr } from "zod/v4/locales";
 import { IResendOtpusecase } from "../../domain/interfaces/usecaseInterface/user/IResendOtpUsecase";
 import { IGoogleLoginUsecase } from "../../domain/interfaces/usecaseInterface/user/IGoogleLoginUsecase";
-import { access } from "node:fs";
 import { IForgotPasswordUsecase } from "../../domain/interfaces/usecaseInterface/user/IForgotPasswordUsecase";
 import { IResetPasswordUsecase } from "../../domain/interfaces/usecaseInterface/user/IResetPasswordUsecase";
 import { IRefreshTokenUsecase } from "../../domain/interfaces/usecaseInterface/user/IRefreshTokenUsecase";
 import { logger } from '../../infrastructure/logging/logger';
+import { ISwitchRoleUsecase } from '../../domain/interfaces/usecaseInterface/user/ISwitchRoleUsecase';
 
 @injectable()
 export class UserController {
@@ -29,8 +25,9 @@ export class UserController {
         @inject("IGoogleLoginUsecase") private _googleLoginUsecase: IGoogleLoginUsecase,
         @inject("IForgotPasswordUsecase") private _forgotPasswordUsecase: IForgotPasswordUsecase,
         @inject("IResetPasswordUsecase") private _resetPasswordUsecase: IResetPasswordUsecase,
-        @inject("IRefreshTokenUsecase") private _refreshTokenUsecase: IRefreshTokenUsecase
-    ) {}
+        @inject("IRefreshTokenUsecase") private _refreshTokenUsecase: IRefreshTokenUsecase,
+        @inject("ISwitchRoleUsecase") private _switchRoleUsecase: ISwitchRoleUsecase
+    ) { }
 
     signup = async (req: Request, res: Response) => {
 
@@ -66,7 +63,7 @@ export class UserController {
         } catch (error: any) {
             res.status(HttpStatusCode.BAD_REQUEST).json({
                 success: true,
-                message: MESSAGES.OTP_VERIFY_SUCCESS || error.message
+                message: MESSAGES.OTP_VERIFY_FAILED || error.message
             })
         }
     }
@@ -75,16 +72,26 @@ export class UserController {
         try {
             const result = await this._loginUsecase.execute(req.body)
 
+            const { accessToken, refreshToken, user } = result;
+
+            res.cookie('refreshToken', refreshToken, {
+                httpOnly: true,
+                secure: process.env.NODE_ENV === 'production',
+                sameSite: 'strict',
+                maxAge: Number(process.env.REFRESH_TOKEN_COOKIE_MAX_AGE) || 7 * 24 * 60 * 60 * 1000
+            });
+
             res.status(HttpStatusCode.OK).json({
                 success: true,
                 message: MESSAGES.LOGIN_SUCCESS,
-                ...result
+                accessToken,
+                user
             })
 
         } catch (error: any) {
             res.status(HttpStatusCode.UNAUTHORIZED).json({
                 success: false,
-                message: MESSAGES.LOGIN_FAILED || error.failed
+                message: error.message || MESSAGES.LOGIN_FAILED
             })
         }
     }
@@ -130,12 +137,18 @@ export class UserController {
             logger.info(`Google login successful`, result.user.email)
 
 
+            res.cookie('refreshToken', result.refreshToken, {
+                httpOnly: true,
+                secure: process.env.NODE_ENV === 'production',
+                sameSite: 'strict',
+                maxAge: Number(process.env.REFRESH_TOKEN_COOKIE_MAX_AGE) || 7 * 24 * 60 * 60 * 1000
+            });
+
             res.status(HttpStatusCode.OK).json({
                 success: true,
                 message: message,
                 user: result.user,
                 accessToken: result.accessToken,
-                refreshToken: result.refreshToken,
                 isNewUser: result.isNewUser
             })
 
@@ -200,11 +213,17 @@ export class UserController {
             const result = await this._refreshTokenUsecase.execute(refreshToken)
             logger.info(MESSAGES.TOKEN_REFRESH_SUCCESS)
 
+            res.cookie('refreshToken', result.refreshToken, {
+                httpOnly: true,
+                secure: process.env.NODE_ENV === 'production',
+                sameSite: 'strict',
+                maxAge: Number(process.env.REFRESH_TOKEN_COOKIE_MAX_AGE) || 7 * 24 * 60 * 60 * 1000
+            });
+
             res.status(HttpStatusCode.OK).json({
                 success: true,
                 message: MESSAGES.TOKEN_REFRESH_SUCCESS,
                 accessToken: result.accessToken,
-                refreshToken: result.refreshToken,
             });
 
 
@@ -212,6 +231,33 @@ export class UserController {
             res.status(HttpStatusCode.UNAUTHORIZED).json({
                 success: false,
                 message: error.message || MESSAGES.TOKEN_REFRESH_FAILED
+            })
+        }
+    }
+
+    switchRole = async (req: Request, res: Response) => {
+        try {
+            if (!req.user) {
+                return res.status(HttpStatusCode.UNAUTHORIZED).json({
+                    success: false,
+                    message: 'Unauthorized'
+                })
+            }
+            const { requestedRole } = req.body
+            const result = await this._switchRoleUsecase.execute(
+                req.user.userId, requestedRole
+            )
+
+            return res.status(HttpStatusCode.OK).json({
+                success: true,
+                message: 'Role switched Successfuly',
+                data: result
+            })
+
+        } catch (error: any) {
+            return res.status(HttpStatusCode.BAD_REQUEST).json({
+                success: false,
+                message: error.message || "Failed to switch role"
             })
         }
     }

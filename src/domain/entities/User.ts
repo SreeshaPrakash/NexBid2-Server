@@ -8,7 +8,7 @@ export interface User {
     googleId ?: string
     phone ?: number
     roles ?: UserRole[]
-    // profileImage : string
+    profileImage ?: string
     isEmailVerified : boolean
     isBlocked : boolean
 

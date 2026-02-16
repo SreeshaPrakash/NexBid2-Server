@@ -26,8 +26,8 @@ export class JwtService implements IJwtService {
   private _refreshTokenExpiry: string;
 
   constructor() {
-    this._accessTokenSecret = process.env.JWT_ACCESS_SECRET!,
-      this._refreshTokenSecret = process.env.JWT_REFRESH_SECRET!
+    this._accessTokenSecret = process.env.JWT_ACCESS_SECRET!;
+    this._refreshTokenSecret = process.env.JWT_REFRESH_SECRET!;
     // ! => states that it won't never be undefined or null  ( or else config it )
     this._accessTokenExpiry = process.env.JWT_ACCESS_EXPIRY || "15m";
     this._refreshTokenExpiry = process.env.JWT_REFRESH_EXPIRY || "7d";

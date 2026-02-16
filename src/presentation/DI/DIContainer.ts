@@ -8,6 +8,6 @@ export class DIContainer {
     static init() {
         RepositoryRegistrar.registerRepository();
         ServiceRegistrar.registerService();
-        UsecaseRegistrar.registerUsecae();
+        UsecaseRegistrar.registerUsecase();
     }
 }

@@ -1,3 +1,5 @@
-import { userController } from "./User/Resolve";
+// import { adminUserController, userController } from "./User/Resolve";
+// import { adminController } from "./User/Resolve";
 
-export const UserRegisterController = userController;
+
+// export const UserRegisterController = userController;

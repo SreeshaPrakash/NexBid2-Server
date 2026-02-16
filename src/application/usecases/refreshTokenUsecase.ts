@@ -1,14 +1,11 @@
 import { injectable, inject } from 'tsyringe';
 
-import { TokenPayload } from './../services/jwtService';
 import { IUserRepository } from "../../domain/interfaces/repositoryInterface/user/IUserRepository";
 import { IJwtService } from "../../domain/interfaces/serviceInterface/jwtServiceInterface";
 import { IRefreshTokenUsecase } from "../../domain/interfaces/usecaseInterface/user/IRefreshTokenUsecase";
 import { UnauthorizedError } from "../../shared/errorConstants";
 import { MESSAGES } from "../../shared/messages";
 import { RefreshTokenResponse } from "../dto/auth.dto";
-import { UserRole } from '../../shared/roles';
-import { HttpStatusCode } from '../../shared/httpStatusCode';
 import { logger } from '../../infrastructure/logging/logger';
 
 @injectable()
@@ -17,7 +14,7 @@ export class RefreshTokenUsecase implements IRefreshTokenUsecase {
     constructor(
         @inject("IJwtService") private _jwtService: IJwtService,
         @inject("IUserRepository") private _userRepo: IUserRepository
-    ) {}
+    ) { }
 
     async execute(refreshToken: string): Promise<RefreshTokenResponse> {
         if (!refreshToken) {
@@ -46,7 +43,7 @@ export class RefreshTokenUsecase implements IRefreshTokenUsecase {
 
             const newAccessToken = this._jwtService.generateAccessToken(tokenPayload)
             const newRefreshToken = this._jwtService.generateRefreshToken(tokenPayload)
-             logger.info(`Token refreshed for user :  ${user.email}`)
+            logger.info(`Token refreshed for user :  ${user.email}`)
 
             return {
                 accessToken: newAccessToken,

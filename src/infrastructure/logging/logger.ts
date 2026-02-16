@@ -48,36 +48,36 @@
 
 import winston from "winston";
 
-const { combine, colorize, timestamp, printf, errors, json} = winston.format
+const { combine, colorize, timestamp, printf, errors, json } = winston.format
 
-const logFormat = printf(({level, message, timestamp, stack}) => {
+const logFormat = printf(({ level, message, timestamp, stack }) => {
     return ` ${timestamp} [${level}] : ${stack || message}`
 })
 
 export const logger = winston.createLogger({
-    level : 'info',
+    level: 'info',
 
-    format : combine(
-        timestamp({format : "YYYY-MM-DD hh:mm:ss A" }),
+    format: combine(
+        timestamp({ format: "YYYY-MM-DD hh:mm:ss A" }),
         errors({ stack: true }),
         logFormat
     ),
 
-    transports : [ 
+    transports: [
         new winston.transports.Console({
-            format : combine(
-                colorize({all : true}),
-                timestamp({format : "YYYY-MM-DD hh:mm:ss A" }),
+            format: combine(
+                colorize({ all: true }),
+                timestamp({ format: "YYYY-MM-DD hh:mm:ss A" }),
                 logFormat
             ),
         }),
-        new winston.transports.File({ 
-            filename : "logs/app.log",
-            level : "info"
-         }),
         new winston.transports.File({
-            filename : "logs/error.log",
-            level : "error"
+            filename: "logs/app.log",
+            level: "info"
+        }),
+        new winston.transports.File({
+            filename: "logs/error.log",
+            level: "error"
         })
-     ]
+    ]
 })

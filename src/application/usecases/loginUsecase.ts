@@ -12,64 +12,64 @@ import bcrypt from "bcrypt";
 @injectable()
 export class LoginUsecase implements ILoginUsecase {
 
-    constructor (
-        @inject("IUserRepository") private _userRepo : IUserRepository,
-        @inject("IJwtService") private _jwtService : IJwtService
-    ) {}
+   constructor(
+      @inject("IUserRepository") private _userRepo: IUserRepository,
+      @inject("IJwtService") private _jwtService: IJwtService
+   ) { }
 
-    async execute(LoginData: LoginDTO): Promise<LoginResponse> {
-        const {email, password} = LoginData
+   async execute(LoginData: LoginDTO): Promise<LoginResponse> {
+      const { email, password } = LoginData
 
-         if(!email || !password){
-            throw new ValidationError('Email and Password required')
-         }
+      if (!email || !password) {
+         throw new ValidationError('Email and Password required')
+      }
 
-         const user = await this._userRepo.findByEmail(email)
-         if(!user){
-            throw new UnauthorizedError('Invalid email or password')
-         }
+      const user = await this._userRepo.findByEmail(email)
+      if (!user) {
+         throw new UnauthorizedError('Email not found')
+      }
 
-         if(user.isBlocked){
-            throw new UnauthorizedError('Your account has been blocked')
-         }
+      if (user.isBlocked) {
+         throw new UnauthorizedError('Your account has been blocked')
+      }
 
-         if(!user.password){
-            throw new UnauthorizedError('invalid login method, login with google')
-         }
+      if (!user.password) {
+         throw new UnauthorizedError('invalid login method, login with google')
+      }
 
-         const isPasswordValild = await bcrypt.compare(password , user.password)
+      const isPasswordValild = await bcrypt.compare(password, user.password)
 
-         if(!isPasswordValild) {
-            throw new UnauthorizedError('Invalid email or password')
-         }
+      if (!isPasswordValild) {
+         throw new UnauthorizedError('Incorrect password')
+      }
 
-         const roles = user.roles || [UserRole.CLIENT]
+      const roles = user.roles || [UserRole.CLIENT]
 
-         const activeRole = UserRole.CLIENT 
+      const activeRole = UserRole.CLIENT
 
-         const tokenPayload = {
-            userId : user.id,
-            email : user.email,
-            roles,
-            activeRole
-         }
+      const tokenPayload = {
+         userId: user.id,
+         email: user.email,
+         roles,
+         activeRole
+      }
 
-         const accessToken = this._jwtService.generateAccessToken(tokenPayload)
-         const refreshToken = this._jwtService.generateRefreshToken(tokenPayload)
+      const accessToken = this._jwtService.generateAccessToken(tokenPayload)
+      const refreshToken = this._jwtService.generateRefreshToken(tokenPayload)
 
-         return {
-            user :{
-                id : user.id,
-                email : user.email,
-                name : user.name,
-                roles : user.roles || [UserRole.CLIENT],
-                isEmailVerified : user.isEmailVerified || false
-            },
-            accessToken,
-            refreshToken
-         }
+      return {
+         user: {
+            id: user.id,
+            email: user.email,
+            name: user.name,
+            roles: user.roles || [UserRole.CLIENT],
+            isEmailVerified: user.isEmailVerified || false
+         },
+         accessToken,
+         refreshToken
+      }
 
-    }
+   }
 }
 
 

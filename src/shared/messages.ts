@@ -24,7 +24,7 @@ export const MESSAGES = {
     OTP_RESEND_SUCCESS : 'OTP has been resend to your email',
     OTP_RESEND_FAILED : 'Failed to resend OTP',
     OTP_VERIFY_SUCCESS : 'OTP verified successfully',
-    OTP_VERIFY_FAILED : 'OTP verified failed',
+    OTP_VERIFY_FAILED : 'Wrong otp. Try again',
 
     GOOGLE_ID_TOKEN_REQUIRED : 'Google Id token is required',
     GOOGLE_SIGNUP_SUCCESS : 'Account created successfully with google',
@@ -45,7 +45,8 @@ export const MESSAGES = {
     TOKEN_REFRESH_SUCCESS : 'Token refreshed successfuly',
     TOKEN_REFRESH_FAILED : 'Token refresh failed',
 
-    GET_PROFILE_FAILED : 'Failed to get profile'
+    GET_PROFILE_FAILED : 'Failed to get profile',
+    UPDATE_PROFILE_FAILED : 'Failed to Update Profile'
 
 }
 
