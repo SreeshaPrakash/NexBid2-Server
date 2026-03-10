@@ -47,7 +47,14 @@ export class RefreshTokenUsecase implements IRefreshTokenUsecase {
 
             return {
                 accessToken: newAccessToken,
-                refreshToken: newRefreshToken
+                refreshToken: newRefreshToken,
+                user: {
+                    id: user.id,
+                    email: user.email,
+                    name: user.name,
+                    roles: user.roles || ['client'],
+                    isEmailVerified: user.isEmailVerified || false
+                }
             }
 
         } catch (error: any) {

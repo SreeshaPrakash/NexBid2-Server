@@ -73,30 +73,18 @@ export interface ResetPasswordDTO {
 
 export interface RefreshTokenResponse {
   accessToken: string,
-  refreshToken: string
+  refreshToken: string,
+  user: {
+    id: string,
+    email: string,
+    name: string,
+    roles: string[],
+    isEmailVerified: boolean
+  }
 }
 
 export interface SwitchRoleResponse {
   accessToken: string,
   refreshToken: string,
   hasProfile: boolean
-}
-
-
-export interface UserDto {
-  id: string;
-  name: string;
-  email: string;
-  phone?: number;
-  role?: "client" | "freelancer" | "admin";
-  roles: string[];
-  status?: "active" | "block";
-  isEmailVerified?: boolean;
-  isBlocked?: boolean;
-  imageUrl?: string;
-  profileImage?: string;
-  createdAt?: Date;
-  updatedAt?: Date;
-  lastLogin?: Date;
-  isAdmin?: boolean;
 }

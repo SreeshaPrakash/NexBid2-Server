@@ -10,15 +10,15 @@ export interface AdminUserListDto {
 }
 
 export interface AdminLoginResponse {
-     user : {
+    user: {
         id: string;
-        email : string;
-        name : string; 
-        roles : string[];
-        isEmailVerified : boolean;
+        email: string;
+        name: string;
+        roles: string[];
+        isEmailVerified: boolean;
     },
-    accessToken  : string;
-    refreshToken : string;
+    accessToken: string;
+    refreshToken: string;
 }
 
 export interface GetUserQueryDTO {
@@ -40,7 +40,7 @@ export interface userListResponse {
         totalUsers: number;
         limit: number;
     };
-    stats: {
+    stats?: {
         total: number;
         active: number;
         blocked: number;

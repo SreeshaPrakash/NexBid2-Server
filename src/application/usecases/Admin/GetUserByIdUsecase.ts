@@ -5,7 +5,7 @@ import { IUserRepository } from "../../../domain/interfaces/repositoryInterface/
 import { IGetUserByIdUsecase } from "../../../domain/interfaces/usecaseInterface/admin/IGetUserByIdUsecase";
 import { NotFoundError, ValidationError } from "../../../shared/errorConstants";
 import { MESSAGES } from "../../../shared/messages";
-import { UserDto } from "../../dto/auth.dto";
+import { UserDto } from '../../dto/client.dto';
 import { mapUserToDto } from "../../mappers/UserMapper";
 
 @injectable()

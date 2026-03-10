@@ -75,7 +75,7 @@
 
 
 
-import { UserDto } from "../dto/auth.dto";
+import { UserDto } from "../dto/client.dto";
 import { User } from "../../domain/entities/User";
 import { AdminUserListDto } from "../dto/admin.dto";
 
@@ -96,7 +96,7 @@ export const mapUserToDto = (user: User): UserDto => {
     isBlocked: user.isBlocked,
 
     profileImage: user.profileImage,
-    imageUrl: user.profileImage,
+    // imageUrl: user.profileImage,
 
     createdAt: user.createdAt,
     updatedAt: user.updatedAt,

@@ -18,7 +18,7 @@ export class SwitchRoleusecase implements ISwitchRoleUsecase {
         @inject("IUserRepository") private _userRepo: IUserRepository,
         @inject("IJwtService") private _jwtService: IJwtService,
         @inject("IFreelancerRepository") private _freelancerRepo: IFreelancerRepository
-    ) { }
+    ) {}
 
     async execute(userId: string, requestedRole: string): Promise<SwitchRoleResponse> {
         if (!requestedRole) {
@@ -70,3 +70,5 @@ export class SwitchRoleusecase implements ISwitchRoleUsecase {
         }
     }
 }
+
+

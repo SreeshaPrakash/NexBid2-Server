@@ -16,7 +16,7 @@ export class RegisterUsecase implements IUserRegisterUsecase {
         @inject("IOtpService") private _otpService: IOtpService
     ) { }
 
-    async execute(userData: RegisterDTO): Promise<boolean> {
+    async execute(userData: RegisterDTO): Promise<any> {
         const existingUser = await this._userRepo.findByEmail(userData.email)
 
         if (existingUser) {
