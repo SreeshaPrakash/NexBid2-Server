@@ -12,6 +12,7 @@ export const MESSAGES = {
     LOGIN_FAILED : 'Login failed',
 
     VALIDATION_FAILED: "Validation failed",
+    INTERNAL_SERVER_ERROR  : "Internal Server Error",
     AUTH_REQUIRED: "Authentication required",
     AUTH_FAILED : 'Authentication failed',
     ACCESS_FORBIDDEN: "Access forbidden",
@@ -46,7 +47,8 @@ export const MESSAGES = {
     TOKEN_REFRESH_FAILED : 'Token refresh failed',
 
     GET_PROFILE_FAILED : 'Failed to get profile',
-    UPDATE_PROFILE_FAILED : 'Failed to Update Profile'
+    PROFILE_UPDATE_SUCCESS : 'Profile Update Successful',
+    PROFILE_UPDATE_FAILED : 'Failed to Update Profile',
 
 }
 

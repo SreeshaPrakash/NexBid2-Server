@@ -7,6 +7,7 @@ import cors from "cors";
 import { UserRoutes } from './presentation/routes/userRoute';
 import { AdminRoutes } from "./presentation/routes/adminRoutes";
 import { FreelancerRoutes } from "./presentation/routes/freelancerRoutes";
+import { ClientRoutes } from "./presentation/routes/clientRoutes";
 import { logger } from './infrastructure/logging/logger';
 import cookieParser from "cookie-parser";
 
@@ -26,7 +27,7 @@ export class App {
     private initializeMiddlewares(): void {
         this.app.use(
             cors({
-                origin: [process.env.CLIENT_URL || '', "http://localhost:5173", "http://localhost:5174"],
+                origin: process.env.CLIENT_URL,
                 credentials: true
             })
         )
@@ -39,6 +40,7 @@ export class App {
         this.app.use('/api', new UserRoutes().userRoutes)
         this.app.use('/api/admin', new AdminRoutes().adminRoutes)
         this.app.use('/api/freelancer', new FreelancerRoutes().freelancerRoutes)
+        this.app.use('/api/client', new ClientRoutes().clientRoutes)
     }
 
     public async listen(): Promise<void> {

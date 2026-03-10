@@ -12,6 +12,7 @@ export class FreelancerRepository implements IFreelancerRepository{
     
     async create(data: Partial<Freelancer>): Promise<Freelancer> {
         const freelancer = await FreelancerModel.create(data)
+        await freelancer.populate("userId")
         return FreelancerMapper.toDomain(freelancer)
     }
 
@@ -22,7 +23,7 @@ export class FreelancerRepository implements IFreelancerRepository{
 
     async update(id: string, data: Partial<Freelancer>): Promise<Freelancer | null> {
         const freelancer = await FreelancerModel.findByIdAndUpdate(
-            id, {$set : data} , {new : true})
+            id, {$set : data} , {new : true}).populate("userId").exec()
         return freelancer ? FreelancerMapper.toDomain(freelancer) : null
     }
 
@@ -30,5 +31,9 @@ export class FreelancerRepository implements IFreelancerRepository{
         const freelancer = await FreelancerModel.findOne({userId}).populate("userId").exec()
         return freelancer ? FreelancerMapper.toDomain(freelancer) : null
     }
+
+
+
+
 
 }

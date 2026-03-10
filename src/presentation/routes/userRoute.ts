@@ -15,6 +15,7 @@ export class UserRoutes {
     private setRoutes(): void {
 
         this.userRoutes.post(UserRoute.SIGNUP, (req, res) => {
+            console.log('user singing in')
             userController.signup(req, res)
         })
 
@@ -51,6 +52,13 @@ export class UserRoutes {
         this.userRoutes.post(UserRoute.SWITCH_ROLE, authMiddleware, (req, res) => {
             userController.switchRole(req, res)
         })
+
+        this.userRoutes.post(UserRoute.LOGOUT, (req, res) => {
+            userController.logout(req, res)
+        })
     }
 
 }
+
+
+

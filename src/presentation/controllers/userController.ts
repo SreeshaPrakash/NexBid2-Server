@@ -13,6 +13,7 @@ import { IResetPasswordUsecase } from "../../domain/interfaces/usecaseInterface/
 import { IRefreshTokenUsecase } from "../../domain/interfaces/usecaseInterface/user/IRefreshTokenUsecase";
 import { logger } from '../../infrastructure/logging/logger';
 import { ISwitchRoleUsecase } from '../../domain/interfaces/usecaseInterface/user/ISwitchRoleUsecase';
+import { ILogoutUsecase } from '../../domain/interfaces/usecaseInterface/user/ILogoutUsecase';
 
 @injectable()
 export class UserController {
@@ -26,14 +27,15 @@ export class UserController {
         @inject("IForgotPasswordUsecase") private _forgotPasswordUsecase: IForgotPasswordUsecase,
         @inject("IResetPasswordUsecase") private _resetPasswordUsecase: IResetPasswordUsecase,
         @inject("IRefreshTokenUsecase") private _refreshTokenUsecase: IRefreshTokenUsecase,
-        @inject("ISwitchRoleUsecase") private _switchRoleUsecase: ISwitchRoleUsecase
+        @inject("ISwitchRoleUsecase") private _switchRoleUsecase: ISwitchRoleUsecase,
+        @inject("ILogoutUsecase") private _logoutUsecase: ILogoutUsecase
     ) { }
 
     signup = async (req: Request, res: Response) => {
 
         try {
             const user = await this._userRegisterUsecase.execute(req.body)
-
+            console.log('user registering, otp send')
             res.status(HttpStatusCode.CREATED).json({
                 success: true,
                 message: MESSAGES.REGISTRATION_SUCCESS,
@@ -53,7 +55,7 @@ export class UserController {
         try {
             const { otp, email } = req.body
             const user = await this._verifyOtpUsecase.execute({ otp, email })
-
+console.log('otp verifying')
             res.status(HttpStatusCode.OK).json({
                 success: true,
                 message: MESSAGES.OTP_VERIFY_SUCCESS,
@@ -202,9 +204,10 @@ export class UserController {
 
     refreshToken = async (req: Request, res: Response) => {
         try {
-            const { refreshToken } = req.body
+            // const { refreshToken } = req.body
+            const refreshToken = req.cookies.refreshToken
             if (!refreshToken) {
-                return res.send(HttpStatusCode.UNAUTHORIZED).json({
+                return res.status(HttpStatusCode.UNAUTHORIZED).json({
                     success: false,
                     message: MESSAGES.REFRESHTOKEN_REQUIRED
                 })
@@ -224,6 +227,7 @@ export class UserController {
                 success: true,
                 message: MESSAGES.TOKEN_REFRESH_SUCCESS,
                 accessToken: result.accessToken,
+                user: result.user
             });
 
 
@@ -262,16 +266,35 @@ export class UserController {
         }
     }
 
-    // getProfile = async(req: Request , res : Response) =>{
-    //     try {
-    //         const userId = req.user
-    //     } catch (error) {
 
-    //     }
-    // }
 
+    logout = async (req: Request, res: Response) => {
+        try {
+            await this._logoutUsecase.execute();
+
+            res.clearCookie('refreshToken', {
+                httpOnly: true,
+                secure: process.env.NODE_ENV === 'production',
+                sameSite: 'strict',
+                path: '/'
+            });
+
+            res.status(HttpStatusCode.OK).json({
+                success: true,
+                message: 'Logged out successfully'
+            });
+        } catch (error: any) {
+            res.status(HttpStatusCode.INTERNAL_SERVER_ERROR).json({
+                success: false,
+                message: error.message || 'Logout failed'
+            });
+        }
+    }
 
 }
+
+
+
 
 
 

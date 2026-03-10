@@ -12,9 +12,9 @@ export class UserRepository extends BaseRepository<User> implements IUserReposit
     constructor() {
         super(userModel)
     }
+
     protected toEntity(doc: any): User {
         return {
-            // id : doc._id.toString(),
             id: doc._id.toString(),
             name: doc.name,
             email: doc.email,
@@ -23,7 +23,15 @@ export class UserRepository extends BaseRepository<User> implements IUserReposit
             roles: doc.roles,
             isEmailVerified: doc.isEmailVerified,
             isBlocked: doc.isBlocked,
-            googleId: doc.googleId
+            googleId: doc.googleId,
+            profileImage: doc.profileImage,
+            country: doc.country,
+            state: doc.state,
+            // location: doc.location,
+            // timezone: doc.timezone,
+            // description: doc.description,
+            createdAt: doc.createdAt,
+            updatedAt: doc.updatedAt
         }
     }
 
@@ -36,7 +44,13 @@ export class UserRepository extends BaseRepository<User> implements IUserReposit
             isBlocked: entity.isBlocked,
             password: entity.password,
             phone: entity.phone,
-            googleId: entity.googleId
+            googleId: entity.googleId,
+            profileImage: entity.profileImage,
+            country: entity.country,
+            state: entity.state,
+            // location: entity.location,
+            // timezone: entity.timezone,
+            // description: entity.description
         }
     }
 
@@ -55,6 +69,41 @@ export class UserRepository extends BaseRepository<User> implements IUserReposit
     async findById(id: string): Promise<User | null> {
         return super.findById(id)
     }
+
+    // async getUserStats(statsFilter: any): Promise<{
+    //     total: number;
+    //     active: number;
+    //     blocked: number;
+    //     clients: number;
+    //     freelancers: number;
+    // }> {
+    //     const stats = await this.model.aggregate([
+    //         { $match: statsFilter },
+    //         {
+    //             $facet: {
+    //                 active: [{ $match: { isBlocked: false } }, { $count: "count" }],
+    //                 blocked: [{ $match: { isBlocked: true } }, { $count: "count" }],
+    //                 clients: [{ $match: { roles: "client" } }, { $count: "count" }],
+    //                 freelancers: [{ $match: { roles: "freelancer" } }, { $count: "count" }]
+    //             }
+    //         },
+    //         {
+    //             $project: {
+    //                 active: { $ifNull: [{ $arrayElemAt: ["$active.count", 0] }, 0] },
+    //                 blocked: { $ifNull: [{ $arrayElemAt: ["$blocked.count", 0] }, 0] },
+    //                 clients: { $ifNull: [{ $arrayElemAt: ["$clients.count", 0] }, 0] },
+    //                 freelancers: { $ifNull: [{ $arrayElemAt: ["$freelancers.count", 0] }, 0] }
+    //             }
+    //         }
+    //     ]);
+
+    //     const result = stats[0];
+    //     return {
+    //         ...result,
+    //         total: result.active + result.blocked
+    //     };
+    // }
+
 
     async findAll(
         filter: any,
@@ -75,46 +124,4 @@ export class UserRepository extends BaseRepository<User> implements IUserReposit
     async count(filter: any): Promise<number> {
         return await this.model.countDocuments(filter)
     }
-
-    async getUserStats(statsFilter: any): Promise<{
-        total: number;
-        active: number;
-        blocked: number;
-        clients: number;
-        freelancers: number;
-    }> {
-        const stats = await this.model.aggregate([
-            { $match: statsFilter },
-            {
-                $facet: {
-                    active: [{ $match: { isBlocked: false } }, { $count: "count" }],
-                    blocked: [{ $match: { isBlocked: true } }, { $count: "count" }],
-                    clients: [{ $match: { roles: "client" } }, { $count: "count" }],
-                    freelancers: [{ $match: { roles: "freelancer" } }, { $count: "count" }]
-                }
-            },
-            {
-                $project: {
-                    active: { $ifNull: [{ $arrayElemAt: ["$active.count", 0] }, 0] },
-                    blocked: { $ifNull: [{ $arrayElemAt: ["$blocked.count", 0] }, 0] },
-                    clients: { $ifNull: [{ $arrayElemAt: ["$clients.count", 0] }, 0] },
-                    freelancers: { $ifNull: [{ $arrayElemAt: ["$freelancers.count", 0] }, 0] }
-                }
-            }
-        ]);
-
-        const result = stats[0];
-        return {
-            ...result,
-            total: result.active + result.blocked
-        };
-    }
-
-
-
-
-
-
 }
-
-

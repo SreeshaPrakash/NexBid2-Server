@@ -2,34 +2,38 @@
 import mongoose, { Schema } from "mongoose";
 
 export interface IFreelancer extends Document {
-    userId : mongoose.Types.ObjectId;
-    title : string;
-    bio : string;
-    skills : string[]
-    rating : number
-    totalReviews : number
-    completedProjects : number
-    gitHubUrl ?: string
-    linkedinUrl ?: string
-    isActive : boolean
-    status : 'unverified' | 'pending' | 'approved' | 'rejected';
-    rejectionReason ?: string
-    createdAt : Date
-    updatedAt : Date
+    userId: mongoose.Types.ObjectId;
+    title: string;
+    bio: string;
+    skills: string[]
+    experienceInYears: number
+    hourlyRate: number
+    rating: number
+    totalReviews: number
+    completedProjects: number
+    gitHubUrl?: string
+    linkedinUrl?: string
+    portfolio?: string
+    previousWorks?: string[]
+    isActive: boolean
+    status: 'unverified' | 'pending' | 'verified' | 'rejected';
+    rejectionReason?: string
+    createdAt: Date
+    updatedAt: Date
 }
 
 
 const FreelancerSchema = new Schema<IFreelancer>(
     {
-        userId : {
-            type : Schema.Types.ObjectId,
-            ref : "User",
-            required : true,
-            unique : true
+        userId: {
+            type: Schema.Types.ObjectId,
+            ref: "User",
+            required: true,
+            unique: true
         },
-        title : {
-            type : String,
-            required : true
+        title: {
+            type: String,
+            required: true
         },
         bio: {
             type: String,
@@ -38,6 +42,14 @@ const FreelancerSchema = new Schema<IFreelancer>(
         skills: {
             type: [String],
             required: true,
+        },
+        experienceInYears: {
+            type: Number,
+            default: 0,
+        },
+        hourlyRate: {
+            type: Number,
+            default: 0,
         },
         rating: {
             type: Number,
@@ -57,9 +69,16 @@ const FreelancerSchema = new Schema<IFreelancer>(
         linkedinUrl: {
             type: String,
         },
+        portfolio: {
+            type: String,
+        },
+        previousWorks: {
+            type: [String],
+            default: [],
+        },
         status: {
             type: String,
-            enum: ['unverified', 'pending', 'approved', 'rejected'],
+            enum: ['unverified', 'pending', 'verified', 'rejected'],
             default: 'unverified',
         },
         rejectionReason: {
@@ -69,9 +88,9 @@ const FreelancerSchema = new Schema<IFreelancer>(
             type: Boolean,
             default: true,
         },
-    },{
-        timestamps : true
-    }
+    }, {
+    timestamps: true
+}
 )
 
 

@@ -9,8 +9,12 @@ const UserSchema = new Schema(
         googleId: { type: String },
         roles: { type: [String], default: ['client'] },
         phone: { type: String },
+        country: { type : String},
+        state : { type : String},
+        profileImage : { type : String},
         isEmailVerified: { type: Boolean, default: false },
         isBlocked: { type: Boolean, default: false }
+
     },
     {
         timestamps: true
@@ -18,3 +22,6 @@ const UserSchema = new Schema(
 )
 
 export const userModel = mongoose.model("User", UserSchema)
+
+
+

@@ -27,6 +27,10 @@ export class FreelancerRoutes {
             freelancerProfileController.requestVerification(req,res)
         })
 
+        this.freelancerRoutes.patch(FreelancerRoute.FREELANCER_PROFILE, authMiddleware, freelancerOnly, (req,res)=>{
+            freelancerProfileController.UpdateFreelancerProfile(req,res)
+        })
+
     }
 }
 

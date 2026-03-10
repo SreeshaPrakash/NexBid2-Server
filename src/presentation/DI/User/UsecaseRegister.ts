@@ -15,6 +15,11 @@ import { UpdateUserStatusUsecase } from "../../../application/usecases/Admin/Upd
 import { CreateFreelancerProfileUsecase } from "../../../application/usecases/Freelancer/CreateFreelancerProfileUsecase";
 import { FreelancerProfileUsecase } from "../../../application/usecases/Freelancer/FreelancerProfileUsecase";
 import { RequestFreelancerVerificationUsecase } from "../../../application/usecases/Freelancer/RequestFreelancerVerificationUsecase";
+import { LogoutUsecase } from "../../../application/usecases/logoutUsecase";
+
+
+import { ClientProfileUsecase } from './../../../application/usecases/Client/clientProfileUsecase';
+import { UpdateFreelancerProfileUsecase } from "../../../application/usecases/Freelancer/UpdateFreelancerProfileUsecase";
 
 export class UsecaseRegistrar {
     static registerUsecase() {
@@ -50,6 +55,13 @@ export class UsecaseRegistrar {
         container.register("IGetFreelancerUsecase", { useClass: FreelancerProfileUsecase })
 
         container.register("IRequestFreelancerVerificationUsecase", { useClass: RequestFreelancerVerificationUsecase })
+
+        container.register("ILogoutUsecase", { useClass: LogoutUsecase })
+
+
+
+        container.register("IClientProfileUsecase",{ useClass : ClientProfileUsecase })
+        container.register("IUpdateFreelancerProfileUsecase", {useClass : UpdateFreelancerProfileUsecase})
 
     }
 }

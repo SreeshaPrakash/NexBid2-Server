@@ -2,5 +2,8 @@ import { UpdateFreelancerProfileDTO } from "../../../../application/dto/freelanc
 import { Freelancer } from "../../../entities/Freelancer";
 
 export interface IUpdateFreelancerProfileUsecase {
-    execute (freelancerId : string,data: UpdateFreelancerProfileDTO ) : Promise<Freelancer>
+    execute (userId : string, data: UpdateFreelancerProfileDTO ) : Promise<Freelancer>
 }
+
+
+

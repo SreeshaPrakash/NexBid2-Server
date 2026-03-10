@@ -4,10 +4,15 @@ export interface CreateFreelancerProfileDTO {
   skills: string[]
   experienceInYears: number
   hourlyRate: number
-  portfolioUrls?: string[]
-  location?: string
-  gitHubUrl ?: string
-  linkedinUrl ?: string
+  portfolio?: string
+  gitHubUrl?: string
+  linkedinUrl?: string
+  previousWorks?: string[]
+  phone?: string
+  name?: string
+  email?: string
+  country?: string
+  state?: string
 }
 
 export interface UpdateFreelancerProfileDTO {
@@ -16,6 +21,26 @@ export interface UpdateFreelancerProfileDTO {
   skills?: string[]
   experienceInYears?: number
   hourlyRate?: number
-  portfolioUrls?: string[]
-  location?: string
+  portfolio?: string
+  gitHubUrl?: string
+  linkedinUrl?: string
+  previousWorks?: string[]
+  phone?: string
+  name?: string
+  email?: string
+  country?: string
+  state?: string
 }
+
+
+
+
+
+
+
+
+
+
+
+
+

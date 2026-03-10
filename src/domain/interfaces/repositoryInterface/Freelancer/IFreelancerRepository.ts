@@ -9,7 +9,7 @@ export interface IFreelancerRepository {
 
     // updateStatus(id: string, data: Pick<Freelancer , 'isActive'>) : Promise<boolean>
 
-    update(id:string, data : Partial<Freelancer | null>) : Promise<Freelancer | null>
+    update(id:string, data : Partial<Freelancer>) : Promise<Freelancer | null>
 
     // findAll(filter: any) : Promise<Freelancer[]>
 

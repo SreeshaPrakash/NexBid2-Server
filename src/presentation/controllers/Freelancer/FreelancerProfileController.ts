@@ -1,3 +1,5 @@
+import { CreateFreelancerProfileDTO } from './../../../application/dto/freelancer.dto';
+import { UpdateFreelancerProfileUsecase } from './../../../application/usecases/Freelancer/UpdateFreelancerProfileUsecase';
 import { injectable, inject } from "tsyringe";
 import { Request, Response } from "express";
 
@@ -5,15 +7,16 @@ import { ICreateFreelancerProfileUsecase } from "../../../domain/interfaces/usec
 import { IGetFreelancerUsecase } from "../../../domain/interfaces/usecaseInterface/freelancer/IGetFreelancerProfileUsecase";
 import { IRequestFreelancerVerificationUsecase } from "../../../domain/interfaces/usecaseInterface/freelancer/IRequestVerificationUsecase";
 import { HttpStatusCode } from "../../../shared/httpStatusCode";
-import { success } from "zod";
 import { MESSAGES } from "../../../shared/messages";
+import { IUpdateFreelancerProfileUsecase } from '../../../domain/interfaces/usecaseInterface/freelancer/IUpdateFreelancerProfileUsecase';
 
 @injectable()
 export class FreelancerProfileController {
     constructor(
         @inject ("ICreateFreelancerProfileUsecase") private _createFreelancerProfileUsecase : ICreateFreelancerProfileUsecase,
         @inject ("IGetFreelancerUsecase") private _freelancerProfileUsecase : IGetFreelancerUsecase,
-        @inject ("IRequestFreelancerVerificationUsecase") private _requestFreelancerVerifyUsecase : IRequestFreelancerVerificationUsecase
+        @inject ("IRequestFreelancerVerificationUsecase") private _requestFreelancerVerifyUsecase : IRequestFreelancerVerificationUsecase,
+        @inject ("IUpdateFreelancerProfileUsecase") private _updateFreelancerProfileUsecase : IUpdateFreelancerProfileUsecase
     ) {}
 
     createProfile = async(req: Request, res: Response) => {
@@ -47,7 +50,7 @@ export class FreelancerProfileController {
             if(!req.user){
                 return res.status(HttpStatusCode.UNAUTHORIZED).json({
                     success : false,
-                    message : 'unauthorised'
+                    message : MESSAGES.RESOURCE_NOT_FOUND
                 })
             }
 
@@ -65,6 +68,40 @@ export class FreelancerProfileController {
             })
         }
     }
+
+
+
+    UpdateFreelancerProfile = async(req:Request, res : Response) => {
+        try {
+            if(!req.user){
+                return res.status(HttpStatusCode.UNAUTHORIZED).json({
+                    success : false,
+                    message : MESSAGES.RESOURCE_NOT_FOUND
+                })
+            }
+
+            const userId = req.user.userId
+            const data = req.body
+            const updatedFreelancer = await this._updateFreelancerProfileUsecase.execute( userId , data)
+
+
+            return res.status(HttpStatusCode.OK).json({
+                success : true,
+                message : MESSAGES.PROFILE_UPDATE_SUCCESS,
+                data : updatedFreelancer
+            })
+
+
+        } catch (error: any) {
+            res.status(HttpStatusCode.INTERNAL_SERVER_ERROR).json({
+                success : false,
+                message : error.message || MESSAGES.INTERNAL_SERVER_ERROR
+            })
+        }
+    }
+
+
+    
 
     requestVerification = async(req: Request, res : Response) => {
         try {
@@ -93,4 +130,10 @@ export class FreelancerProfileController {
     }
 
 
+
+
+
+
 }
+
+
