@@ -29,6 +29,16 @@ export class CreateFreelancerProfileUsecase implements ICreateFreelancerProfileU
         if (data.country !== undefined) userUpdateData.country = data.country;
         if (data.state !== undefined) userUpdateData.state = data.state;
 
+        if (data.profileImage !== undefined) userUpdateData.profileImage = data.profileImage;
+
+
+        const user = await this.userRepo.findById(userId);
+
+        const currentRoles = user?.roles ?? ['client'];
+        if (!currentRoles.includes('freelancer' as any)) {
+            userUpdateData.roles = [...currentRoles, 'freelancer'];
+        }
+
         if (Object.keys(userUpdateData).length > 0) {
             await this.userRepo.update(userId, userUpdateData);
         }
@@ -49,6 +59,7 @@ export class CreateFreelancerProfileUsecase implements ICreateFreelancerProfileU
             email: data.email,
             country: data.country,
             state: data.state,
+            profileImage: data.profileImage ?? "",
             rating: 0,
             totalReviews: 0,
             completedProjects: 0,
@@ -58,6 +69,8 @@ export class CreateFreelancerProfileUsecase implements ICreateFreelancerProfileU
         } as Freelancer)
     }
 
-
 }
+
+
+
 

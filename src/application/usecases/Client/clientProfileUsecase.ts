@@ -1,8 +1,10 @@
 import { injectable , inject} from 'tsyringe';
 
 import { IUserRepository } from "../../../domain/interfaces/repositoryInterface/user/IUserRepository";
-import { IClientProfileUsecase } from "../../../domain/interfaces/usecaseInterface/user/IClientProfileUsecase";
+import { IClientProfileUsecase } from "../../../domain/interfaces/usecaseInterface/Client/IClientProfileUsecase";
 import { User } from "../../../domain/entities/User";
+import { UserDto } from "../../dto/client.dto";
+import { mapUserToDto } from '../../mappers/UserMapper';
 
 @injectable()
 export class ClientProfileUsecase implements IClientProfileUsecase {
@@ -10,23 +12,18 @@ export class ClientProfileUsecase implements IClientProfileUsecase {
         @inject ('IUserRepository') private _userRepo : IUserRepository
     ){}
 
-    async getClientProfile(userId: string): Promise<User | null> {
-        //  return this._userRepo.findById(userId)
-        
+    async getClientProfile(userId: string): Promise<UserDto | null> {
         const user = await this._userRepo.findById(userId)
-        if (user) {
-            const { password, ...userWithoutPassword } = user
-            return userWithoutPassword as User
-        }
-        return null
+        return user ? mapUserToDto(user) : null
     }
 
 
 
-    async updateClientProfile(userId: string, data: Partial<User>): Promise<User> {
-        const updatedUser = await this._userRepo.update(userId, data)
-        return updatedUser
-    }
+    // async updateClientProfile(userId: string, data: Partial<User>): Promise<User> {
+        
+    //     const updatedUser = await this._userRepo.update(userId, data)
+    //     return updatedUser
+    // }
 }
 
 

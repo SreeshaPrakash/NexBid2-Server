@@ -32,6 +32,7 @@ export class VerifyOtpUsecase implements IVerifyOtpUsecase {
 
         const tempUserKey = `tempUser:${email}`
         const tempUserData = await redis.get(tempUserKey)   //data stored in redis will be in json format
+        
 
         if (!tempUserData) {
             throw new Error('Registration session expired, please register again')
@@ -49,7 +50,7 @@ export class VerifyOtpUsecase implements IVerifyOtpUsecase {
             isEmailVerified: true,
             isBlocked: false,
             createdAt: new Date(),
-            updatedAt: new Date()
+            updatedAt: new Date(),
         }
 
         const savedUser = await this._userRepo.save(newUser)

@@ -20,7 +20,6 @@ export class OtpService implements IOtpService {
         const otp = this.generateOtp()
         logger.info(` otp created `)
 
-        // await redis.set(`otp:${email}` , otp , { EX : this.OTP_TTL } )
         await redis.set(`otp:${email}`, otp, 'EX', this.OTP_TTL)
 
 

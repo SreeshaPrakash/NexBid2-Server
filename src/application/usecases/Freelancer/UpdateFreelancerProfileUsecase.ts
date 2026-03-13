@@ -29,7 +29,10 @@ export class UpdateFreelancerProfileUsecase implements IUpdateFreelancerProfileU
         if (data.phone !== undefined) userUpdateData.phone = data.phone;
         if (data.country !== undefined) userUpdateData.country = data.country;
         if (data.state !== undefined) userUpdateData.state = data.state;
-        
+
+        if (data.profileImage !== undefined) userUpdateData.profileImage = data.profileImage;
+
+
         if (Object.keys(userUpdateData).length > 0) {
             await this._userRepo.update(userId, userUpdateData);
         }

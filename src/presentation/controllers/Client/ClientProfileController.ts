@@ -1,15 +1,17 @@
 import { injectable, inject } from "tsyringe";
 
-import { IClientProfileUsecase } from "../../../domain/interfaces/usecaseInterface/user/IClientProfileUsecase";
+import { IClientProfileUsecase } from "../../../domain/interfaces/usecaseInterface/Client/IClientProfileUsecase";
 import { Request, Response } from "express";
 import { HttpStatusCode } from "../../../shared/httpStatusCode";
 import { MESSAGES } from "../../../shared/messages";
+import { IUpdateClientProfileUsecase } from "../../../domain/interfaces/usecaseInterface/Client/IClientUpdateProfileUsecase";
 
 
 @injectable()
 export class ClientProfileController {
     constructor(
-        @inject('IClientProfileUsecase') private _clientProfileUsecase : IClientProfileUsecase
+        @inject('IClientProfileUsecase') private _clientProfileUsecase : IClientProfileUsecase,
+        @inject('IUpdateClientProfileUsecase') private _updateClientProfileUsecase : IUpdateClientProfileUsecase
     ) {}
 
 
@@ -50,7 +52,7 @@ export class ClientProfileController {
 
             const userId = req.user.userId
             const data = req.body
-            const updatedClient = await this._clientProfileUsecase.updateClientProfile(userId, data)
+            const updatedClient = await this._updateClientProfileUsecase.execute(userId, data)
 
             return res.status(HttpStatusCode.OK).json({
                 success : true,

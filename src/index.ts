@@ -11,6 +11,8 @@ import { ClientRoutes } from "./presentation/routes/clientRoutes";
 import { logger } from './infrastructure/logging/logger';
 import cookieParser from "cookie-parser";
 
+import s3Routes from "./presentation/routes/s3Routes";   //s3 bucket route
+
 
 export class App {
     private app: Express
@@ -41,6 +43,7 @@ export class App {
         this.app.use('/api/admin', new AdminRoutes().adminRoutes)
         this.app.use('/api/freelancer', new FreelancerRoutes().freelancerRoutes)
         this.app.use('/api/client', new ClientRoutes().clientRoutes)
+        this.app.use("/api/s3", s3Routes);   
     }
 
     public async listen(): Promise<void> {

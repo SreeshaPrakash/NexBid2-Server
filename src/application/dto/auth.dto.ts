@@ -3,7 +3,7 @@ export interface RegisterDTO {
   name: string
   email: string
   password: string
-  // phone ?: number
+
 }
 
 
@@ -82,6 +82,7 @@ export interface RefreshTokenResponse {
     isEmailVerified: boolean
   }
 }
+
 
 export interface SwitchRoleResponse {
   accessToken: string,

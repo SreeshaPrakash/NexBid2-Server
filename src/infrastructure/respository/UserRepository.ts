@@ -27,9 +27,6 @@ export class UserRepository extends BaseRepository<User> implements IUserReposit
             profileImage: doc.profileImage,
             country: doc.country,
             state: doc.state,
-            // location: doc.location,
-            // timezone: doc.timezone,
-            // description: doc.description,
             createdAt: doc.createdAt,
             updatedAt: doc.updatedAt
         }
@@ -48,9 +45,6 @@ export class UserRepository extends BaseRepository<User> implements IUserReposit
             profileImage: entity.profileImage,
             country: entity.country,
             state: entity.state,
-            // location: entity.location,
-            // timezone: entity.timezone,
-            // description: entity.description
         }
     }
 
@@ -124,4 +118,6 @@ export class UserRepository extends BaseRepository<User> implements IUserReposit
     async count(filter: any): Promise<number> {
         return await this.model.countDocuments(filter)
     }
+
+
 }

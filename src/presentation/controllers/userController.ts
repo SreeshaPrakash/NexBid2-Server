@@ -80,7 +80,7 @@ console.log('otp verifying')
                 httpOnly: true,
                 secure: process.env.NODE_ENV === 'production',
                 sameSite: 'strict',
-                maxAge: Number(process.env.REFRESH_TOKEN_COOKIE_MAX_AGE) || 7 * 24 * 60 * 60 * 1000
+                maxAge: Number(process.env.REFRESH_TOKEN_COOKIE_MAX_AGE) 
             });
 
             res.status(HttpStatusCode.OK).json({
@@ -204,7 +204,6 @@ console.log('otp verifying')
 
     refreshToken = async (req: Request, res: Response) => {
         try {
-            // const { refreshToken } = req.body
             const refreshToken = req.cookies.refreshToken
             if (!refreshToken) {
                 return res.status(HttpStatusCode.UNAUTHORIZED).json({

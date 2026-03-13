@@ -4,10 +4,9 @@ export interface UserDto {
   id: string;
   name: string;
   email: string;
-  phone?: number;
-    role?: "client" | "freelancer" | "admin";
-    roles: string[];
-//   roles : UserRole[]
+  phone?: string;
+  role?: "client" | "freelancer" | "admin";
+  roles: string[];
   status?: "active" | "block";
   isEmailVerified?: boolean;
   isBlocked?: boolean;

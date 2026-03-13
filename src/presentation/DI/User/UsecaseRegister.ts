@@ -19,6 +19,7 @@ import { LogoutUsecase } from "../../../application/usecases/logoutUsecase";
 
 
 import { ClientProfileUsecase } from './../../../application/usecases/Client/clientProfileUsecase';
+import { UpdateclientProfileUsecase } from './../../../application/usecases/Client/UpdateClientProfileUsecase';
 import { UpdateFreelancerProfileUsecase } from "../../../application/usecases/Freelancer/UpdateFreelancerProfileUsecase";
 
 export class UsecaseRegistrar {
@@ -61,7 +62,13 @@ export class UsecaseRegistrar {
 
 
         container.register("IClientProfileUsecase",{ useClass : ClientProfileUsecase })
+        container.register("IUpdateClientProfileUsecase", { useClass : UpdateclientProfileUsecase })
         container.register("IUpdateFreelancerProfileUsecase", {useClass : UpdateFreelancerProfileUsecase})
 
     }
 }
+
+
+
+
+

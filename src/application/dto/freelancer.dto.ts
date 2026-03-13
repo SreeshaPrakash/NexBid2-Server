@@ -8,11 +8,12 @@ export interface CreateFreelancerProfileDTO {
   gitHubUrl?: string
   linkedinUrl?: string
   previousWorks?: string[]
-  phone?: string
   name?: string
   email?: string
   country?: string
   state?: string
+  phone?: string
+  profileImage : string
 }
 
 export interface UpdateFreelancerProfileDTO {
@@ -30,6 +31,7 @@ export interface UpdateFreelancerProfileDTO {
   email?: string
   country?: string
   state?: string
+  profileImage ?: string
 }
 
 

@@ -24,4 +24,6 @@ export interface IUserRepository {
      //                               clients: number;
      //                               freelancers: number;
      //                          }>
+
+     
 }
