@@ -7,3 +7,4 @@ export class LogoutUsecase implements ILogoutUsecase {
         return;
     }
 }
+

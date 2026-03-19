@@ -5,6 +5,7 @@ import { FreelancerMapper } from './../../application/mappers/FreelanceMapper';
 import { Freelancer } from "../../domain/entities/Freelancer";
 import { IFreelancerRepository } from "../../domain/interfaces/repositoryInterface/Freelancer/IFreelancerRepository";
 import { FreelancerModel } from "../database/FreelancerModel";
+import { FreelancerProfileStatus } from '../../shared/FreelancerConstants/FreelancerProfileStatus';
 
 
 @injectable()
@@ -32,8 +33,13 @@ export class FreelancerRepository implements IFreelancerRepository{
         return freelancer ? FreelancerMapper.toDomain(freelancer) : null
     }
 
+    async findPendingVerifications(): Promise<Freelancer[]> {
+        const freelancers = await FreelancerModel.find({
+            verificationStatus : FreelancerProfileStatus.Pending 
+        }).populate("userId").exec()
 
-
+        return freelancers.map(FreelancerMapper.toDomain)
+    }
 
 
 }

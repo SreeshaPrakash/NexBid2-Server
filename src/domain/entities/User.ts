@@ -8,8 +8,8 @@
         googleId ?: string
         phone ?: string
         roles ?: UserRole[]
-        country ?: string          //doubt if needed
-        state ?: string            //doubt if needed
+        country ?: string          
+        state ?: string            
         profileImage ?: string
         isEmailVerified : boolean
         isBlocked : boolean

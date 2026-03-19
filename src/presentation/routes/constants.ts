@@ -19,7 +19,11 @@ export enum AdminRoute {
   LOGIN = '/login',
   GET_ALL_USERS = '/getAllUsers',
   GET_USER = '/getUserById/:id',
-  TOGGLE_BLOCK_STATUS = '/block-status/:id'
+  TOGGLE_BLOCK_STATUS = '/block-status/:id',
+  VERIFICATION_REQUESTS = '/verification-requests',
+  APPROVE_VERIFICATION = '/approve-verification/:freelancerId',
+  REJECT_VERIFICATION = '/reject-verification/:freelancerId',
+  GET_FREELANCER_PROFILE = '/freelancer-profile/:id'
 
 }
 

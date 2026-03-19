@@ -1,4 +1,3 @@
-
 import { Freelancer } from "../../domain/entities/Freelancer";
 
 export class FreelancerMapper {
@@ -14,8 +13,6 @@ export class FreelancerMapper {
       isBlocked: raw.userId.isBlocked,
       isEmailVerified: raw.userId.isEmailVerified,
       profileImage: raw.userId.profileImage,
-      portfolio: raw.portfolio,
-      previousWorks: raw.previousWorks,
       phone: raw.userId.phone,
       country: raw.userId.country,
       state: raw.userId.state,
@@ -29,11 +26,12 @@ export class FreelancerMapper {
       completedProjects: raw.completedProjects,
       experienceInYears: raw.experienceInYears,
       hourlyRate: raw.hourlyRate,
-
+      portfolio: raw.portfolio,
+      previousWorks: raw.previousWorks,
       gitHubUrl: raw.gitHubUrl,
       linkedinUrl: raw.linkedinUrl,
       isActive: raw.isActive,
-      status: raw.status,
+      verificationStatus: raw.verificationStatus,
       rejectionReason: raw.rejectionReason,
 
       createdAt: raw.createdAt,
@@ -41,7 +39,3 @@ export class FreelancerMapper {
     };
   }
 }
-
-
-
-

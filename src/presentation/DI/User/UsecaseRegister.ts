@@ -21,6 +21,10 @@ import { LogoutUsecase } from "../../../application/usecases/logoutUsecase";
 import { ClientProfileUsecase } from './../../../application/usecases/Client/clientProfileUsecase';
 import { UpdateclientProfileUsecase } from './../../../application/usecases/Client/UpdateClientProfileUsecase';
 import { UpdateFreelancerProfileUsecase } from "../../../application/usecases/Freelancer/UpdateFreelancerProfileUsecase";
+import { GetPendingVerificationsUsecase } from "../../../application/usecases/Admin/GetPendingVerificationsUsecase";
+import { ApproveFreelancerVerificationUsecase } from "../../../application/usecases/Admin/ApproveFreelancerVerificationUsecase";
+import { RejectFreelancerVerificationUsecase } from "../../../application/usecases/Admin/RejectFreelancerVerificationUsecase";
+import { GetAdminFreelancerProfileUsecase } from "../../../application/usecases/Admin/GetAdminFreelancerProfileUsecase";
 
 export class UsecaseRegistrar {
     static registerUsecase() {
@@ -58,6 +62,11 @@ export class UsecaseRegistrar {
         container.register("IRequestFreelancerVerificationUsecase", { useClass: RequestFreelancerVerificationUsecase })
 
         container.register("ILogoutUsecase", { useClass: LogoutUsecase })
+
+        container.register("IGetPendingVerificationsUsecase", { useClass: GetPendingVerificationsUsecase })
+        container.register("IApproveFreelancerVerificationUsecase", { useClass: ApproveFreelancerVerificationUsecase })
+        container.register("IRejectFreelancerVerificationUsecase", { useClass: RejectFreelancerVerificationUsecase })
+        container.register("IGetAdminFreelancerProfileUsecase", { useClass: GetAdminFreelancerProfileUsecase })
 
 
 

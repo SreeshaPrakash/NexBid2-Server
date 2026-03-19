@@ -16,7 +16,7 @@ export interface IFreelancer extends Document {
     portfolio?: string
     previousWorks?: string[]
     isActive: boolean
-    status: 'unverified' | 'pending' | 'verified' | 'rejected';
+    verificationStatus: 'unverified' | 'pending' | 'verified' | 'rejected';
     rejectionReason?: string
     createdAt: Date
     updatedAt: Date
@@ -76,7 +76,7 @@ const FreelancerSchema = new Schema<IFreelancer>(
             type: [String],
             default: [],
         },
-        status: {
+        verificationStatus: {
             type: String,
             enum: ['unverified', 'pending', 'verified', 'rejected'],
             default: 'unverified',

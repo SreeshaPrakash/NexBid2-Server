@@ -1,6 +1,4 @@
 import { injectable, inject } from "tsyringe";
-
-
 import { Freelancer } from "../../../domain/entities/Freelancer";
 import { IFreelancerRepository } from "../../../domain/interfaces/repositoryInterface/Freelancer/IFreelancerRepository";
 import { IRequestFreelancerVerificationUsecase } from "../../../domain/interfaces/usecaseInterface/freelancer/IRequestVerificationUsecase";
@@ -20,20 +18,20 @@ export class RequestFreelancerVerificationUsecase implements IRequestFreelancerV
             throw new ValidationError( 'Freelancer profile not found, please create first')
         }
 
-        if(freelancer.status === FreelancerProfileStatus.Verified){
+        if(freelancer.verificationStatus === FreelancerProfileStatus.Verified){
             throw new ValidationError("Profile already verified")
         }
 
-        if(freelancer.status === FreelancerProfileStatus.Pending) {
+        if(freelancer.verificationStatus === FreelancerProfileStatus.Pending) {
             throw new ValidationError('Verification request already pending')
         }
 
         if(
-            freelancer.status === FreelancerProfileStatus.Rejected || 
-            freelancer.status === FreelancerProfileStatus.Unverified
+            freelancer.verificationStatus === FreelancerProfileStatus.Rejected || 
+            freelancer.verificationStatus === FreelancerProfileStatus.Unverified
         ) {
             const updated = await this._freelancerRepo.update(freelancer.id, {
-                status : FreelancerProfileStatus.Pending,
+                verificationStatus : FreelancerProfileStatus.Pending,
                 rejectionReason : "",
             })
 

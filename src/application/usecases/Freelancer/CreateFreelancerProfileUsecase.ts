@@ -63,7 +63,7 @@ export class CreateFreelancerProfileUsecase implements ICreateFreelancerProfileU
             rating: 0,
             totalReviews: 0,
             completedProjects: 0,
-            status: FreelancerProfileStatus.Unverified,
+            verificationStatus: FreelancerProfileStatus.Unverified,
             isActive: false,
             rejectionReason: "",
         } as Freelancer)

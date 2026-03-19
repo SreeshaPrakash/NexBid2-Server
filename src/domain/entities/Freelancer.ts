@@ -1,4 +1,6 @@
 import { User } from "./User";
+import { FreelancerProfileStatus } from './../../shared/FreelancerConstants/FreelancerProfileStatus';
+
 export interface Freelancer extends User {
     id: string
     userId: string
@@ -16,8 +18,9 @@ export interface Freelancer extends User {
     rating: number
     totalReviews: number
     completedProjects: number
-    status: 'unverified' | 'pending' | 'verified' | 'rejected',
+    verificationStatus: 'unverified' | 'pending' | 'verified' | 'rejected',
     rejectionReason?: string
+    
     isActive: boolean,
     createdAt: Date
     updatedAt: Date

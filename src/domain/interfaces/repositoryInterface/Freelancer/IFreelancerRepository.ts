@@ -7,10 +7,8 @@ export interface IFreelancerRepository {
 
     findByUserId(userId: string): Promise<Freelancer | null>;
 
-    // updateStatus(id: string, data: Pick<Freelancer , 'isActive'>) : Promise<boolean>
-
     update(id:string, data : Partial<Freelancer>) : Promise<Freelancer | null>
 
-    // findAll(filter: any) : Promise<Freelancer[]>
-
+    findPendingVerifications() : Promise<Freelancer[]> 
+    
 }
