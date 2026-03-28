@@ -15,7 +15,6 @@ export class GoogleAuthService implements IGoogleAuthservice {
 
     async verifyGoogleToken(token: string): Promise<GoogleUserInfo> {
         try {
-            // First try to verify as ID Token
             try {
                 const ticket = await this.client.verifyIdToken({
                     idToken: token,
@@ -38,7 +37,6 @@ export class GoogleAuthService implements IGoogleAuthservice {
                 logger.info(`ID token verification failed, trying as access token...`)
             }
 
-            // If ID token verification fails, treat as access token and fetch user info
             this.client.setCredentials({ access_token: token });
             const response = await this.client.request<any>({
                 url: 'https://www.googleapis.com/oauth2/v3/userinfo'

@@ -15,6 +15,7 @@ export interface AdminLoginResponse {
         email: string;
         name: string;
         roles: string[];
+        activeRole: string;
         isEmailVerified: boolean;
     },
     accessToken: string;

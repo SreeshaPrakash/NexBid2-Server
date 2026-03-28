@@ -8,8 +8,8 @@ import { AdminUserController } from "../../controllers/Admin/AdminUserController
 import { FreelancerProfileController } from "../../controllers/Freelancer/FreelancerProfileController";
 import { ClientProfileController } from './../../controllers/Client/ClientProfileController';
 import { AdminVerificationController } from './../../controllers/Admin/AdminVerificationController';
-
-
+import { ProjectController } from "../../controllers/Project/ProjectController";
+import { SkillController } from "../../controllers/SkillController";
 
 DIContainer.init()
 
@@ -24,3 +24,7 @@ export const freelancerProfileController = container.resolve(FreelancerProfileCo
 export const clientProfileController = container.resolve(ClientProfileController)
 
 export const adminVerificationController = container.resolve(AdminVerificationController)
+
+export const projectController = container.resolve(ProjectController)
+
+export const skillController = container.resolve(SkillController)

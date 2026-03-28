@@ -25,6 +25,13 @@ import { GetPendingVerificationsUsecase } from "../../../application/usecases/Ad
 import { ApproveFreelancerVerificationUsecase } from "../../../application/usecases/Admin/ApproveFreelancerVerificationUsecase";
 import { RejectFreelancerVerificationUsecase } from "../../../application/usecases/Admin/RejectFreelancerVerificationUsecase";
 import { GetAdminFreelancerProfileUsecase } from "../../../application/usecases/Admin/GetAdminFreelancerProfileUsecase";
+import { CreateProjectUsecase } from "../../../application/usecases/project/CreateProjectUsecase";
+import { EditProjectUsecase } from "../../../application/usecases/project/EditProjectUsecase";
+import { GetClientProjectsUsecase } from "../../../application/usecases/project/GetClientProjectsUsecase";
+import { GetOpenProjectsUsecase } from "../../../application/usecases/project/GetOpenProjectsUsecase";
+import { GetProjectByIdUsecase } from "../../../application/usecases/project/GetProjectByIdUsecase";
+import { DeleteProjectUsecase } from "../../../application/usecases/project/DeleteProjectUsecase";
+import { GetSkillsUsecase } from "../../../application/usecases/skill/GetSkillsUsecase";
 
 export class UsecaseRegistrar {
     static registerUsecase() {
@@ -69,11 +76,20 @@ export class UsecaseRegistrar {
         container.register("IGetAdminFreelancerProfileUsecase", { useClass: GetAdminFreelancerProfileUsecase })
 
 
+        container.register("IClientProfileUsecase", { useClass: ClientProfileUsecase })
+        container.register("IUpdateClientProfileUsecase", { useClass: UpdateclientProfileUsecase })
+        container.register("IUpdateFreelancerProfileUsecase", { useClass: UpdateFreelancerProfileUsecase })
 
-        container.register("IClientProfileUsecase",{ useClass : ClientProfileUsecase })
-        container.register("IUpdateClientProfileUsecase", { useClass : UpdateclientProfileUsecase })
-        container.register("IUpdateFreelancerProfileUsecase", {useClass : UpdateFreelancerProfileUsecase})
 
+
+        container.register("ICreateProjectUsecase", { useClass: CreateProjectUsecase })
+        container.register("IGetClientProjectsUsecase", { useClass: GetClientProjectsUsecase })
+        container.register("IGetOpenProjectsUsecase", { useClass: GetOpenProjectsUsecase })
+        container.register("IGetProjectByIdUsecase", { useClass: GetProjectByIdUsecase })
+        container.register("IEditProjectUsecase", { useClass: EditProjectUsecase })
+        container.register("IDeleteProjectUsecase", { useClass: DeleteProjectUsecase })
+
+        container.register("IGetSkillsUsecase", { useClass: GetSkillsUsecase })
     }
 }
 

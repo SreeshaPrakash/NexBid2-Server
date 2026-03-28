@@ -89,7 +89,11 @@ export class AdminUserController {
 
             return res.status(HttpStatusCode.OK).json({
                 success: true,
-                message: `User ${isBlocked ? "blocked" : "unblocked"} successfully`
+                message: `User ${isBlocked ? "blocked" : "unblocked"} successfully`,
+                data: {
+                    userId: id,
+                    isBlocked: isBlocked
+                }
             })
         } catch (error: any) {
             const statusCode = error.name === "NotFoundError" ? 404 : 400;

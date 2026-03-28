@@ -38,3 +38,24 @@ export enum ClientRoute {
   CLIENTPROFILE = '/clientprofile',
   
 }
+
+export enum ProjectRoute {
+    CREATE = "/create",
+    GET_CLIENT_PROJECTS = "/list",
+    // GET_OPEN_PROJECTS = "/marketplace",
+    GET_OPEN_PROJECTS = "/openProjects",
+    GET_PROJECT_BY_ID = "/:projectId",
+    UPDATE = "/update/:projectId",
+    DELETE = "/:projectId"
+}
+
+
+// export enum ProjectRoute {
+//     CREATE = "/project",                // POST
+//     GET_CLIENT_PROJECTS = "/my-projects", // GET
+//     GET_OPEN_PROJECTS = "/marketplace",  // GET (Open + Public)
+//     GET_PROJECT_BY_ID = "/:projectId",   // GET
+//     UPDATE = "/update/:projectId",       // PATCH
+//     DELETE = "/delete/:projectId"        // DELETE
+
+// }

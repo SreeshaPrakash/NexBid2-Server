@@ -1,17 +1,24 @@
-export type ProjectStatus  = 'open' | 'bidding_closed' | 'in_progress' | 'completed'
+import { ProjectStatus, ProjectVisibility } from "../../shared/projectConstants";
 
-export interface Projects {
-        id : string
-        clientId : string
-        title : string
-        description : string
-        budget : number
-        deadline : Date
-        attachments ?: string[]
-        status : string
-        isPublic : boolean  //for privating after bid closes   //doubt
-        createdAt : Date
-        updatedAt : Date
-
-
+export interface Project {
+    id: string;
+    clientId: string;
+    title: string;
+    description: string;
+    budget: number;
+    deadline?: Date | null;
+    biddingDeadline: Date;
+    attachments: string[];
+    skillsRequired: string[];
+    projectStatus: ProjectStatus;
+    visibility: ProjectVisibility;
+    selectedFreelancer: string | null;
+    isDeleted: boolean;
+    deletedAt: Date | null;
+    createdAt: Date;
+    updatedAt: Date;
 }
+
+
+
+

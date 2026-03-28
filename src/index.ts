@@ -8,6 +8,8 @@ import { UserRoutes } from './presentation/routes/userRoute';
 import { AdminRoutes } from "./presentation/routes/adminRoutes";
 import { FreelancerRoutes } from "./presentation/routes/freelancerRoutes";
 import { ClientRoutes } from "./presentation/routes/clientRoutes";
+import { ProjectRoutes } from "./presentation/routes/ProjectRoutes";
+import { SkillRoutes } from "./presentation/routes/skillRoutes";
 import { logger } from './infrastructure/logging/logger';
 import cookieParser from "cookie-parser";
 
@@ -43,6 +45,8 @@ export class App {
         this.app.use('/api/admin', new AdminRoutes().adminRoutes)
         this.app.use('/api/freelancer', new FreelancerRoutes().freelancerRoutes)
         this.app.use('/api/client', new ClientRoutes().clientRoutes)
+        this.app.use('/api/project', new ProjectRoutes().projectRoutes)
+        this.app.use("/api/skills", new SkillRoutes().skillRoutes)
         this.app.use("/api/s3", s3Routes);   
     }
 

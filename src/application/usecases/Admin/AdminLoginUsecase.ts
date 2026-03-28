@@ -68,6 +68,7 @@ export class AdminLoginUsecase implements IAdminLoginUsecase {
                 email: user.email,
                 name: user.name,
                 roles: user.roles ?? [],
+                activeRole: UserRole.ADMIN,
                 isEmailVerified: user.isEmailVerified
             },
             accessToken,

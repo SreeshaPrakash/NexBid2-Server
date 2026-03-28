@@ -1,0 +1,15 @@
+
+export enum ProjectStatus {
+    OPEN = 'OPEN',
+    IN_PROGRESS = 'IN_PROGRESS',
+    COMPLETED = 'COMPLETED',
+    CANCELLED = 'CANCELLED'
+}
+
+export enum ProjectVisibility {
+    PUBLIC = 'PUBLIC',
+    CLOSED = 'CLOSED'
+}
+
+
+

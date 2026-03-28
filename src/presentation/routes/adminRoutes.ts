@@ -29,20 +29,20 @@ export class AdminRoutes {
 
 
 
-        this.adminRoutes.get(AdminRoute.GET_FREELANCER_PROFILE, (req,res)=>{
-            adminVerificationController.getFreelancerProfile(req,res)
+        this.adminRoutes.get(AdminRoute.GET_FREELANCER_PROFILE, (req, res) => {
+            adminVerificationController.getFreelancerProfile(req, res)
         })
 
-        this.adminRoutes.get(AdminRoute.VERIFICATION_REQUESTS, (req,res)=>{
-            adminVerificationController.getPendingRequests(req,res)
+        this.adminRoutes.get(AdminRoute.VERIFICATION_REQUESTS, (req, res) => {
+            adminVerificationController.getPendingRequests(req, res)
         })
 
-        this.adminRoutes.post(AdminRoute.APPROVE_VERIFICATION, (req,res)=>{
-            adminVerificationController.approveVerification(req,res)
+        this.adminRoutes.post(AdminRoute.APPROVE_VERIFICATION, (req, res) => {
+            adminVerificationController.approveVerification(req, res)
         })
 
-        this.adminRoutes.post(AdminRoute.REJECT_VERIFICATION, (req,res)=>{
-            adminVerificationController.rejectVerification(req,res)
+        this.adminRoutes.post(AdminRoute.REJECT_VERIFICATION, (req, res) => {
+            adminVerificationController.rejectVerification(req, res)
         })
     }
 
