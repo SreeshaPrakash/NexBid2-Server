@@ -54,6 +54,12 @@ export class GoogleLoginUsecase implements IGoogleLoginUsecase {
                 })
                 logger.info(`Linked Google account to existing user :`, user.email)
             }
+
+            // Role check for client-side login (for existing users)
+            const hasClientRole = user.roles?.includes(UserRole.CLIENT);
+            if (!hasClientRole) {
+                throw new UnauthorizedError('Unauthorized: You do not have access to the client portal');
+            }
         }
 
         const TokenPayload = {

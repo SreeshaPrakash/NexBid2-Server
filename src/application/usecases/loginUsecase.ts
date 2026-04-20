@@ -43,6 +43,12 @@ export class LoginUsecase implements ILoginUsecase {
          throw new UnauthorizedError('Incorrect password')
       }
 
+      // Role check for client-side login
+      const hasClientRole = user.roles?.includes(UserRole.CLIENT);
+      if (!hasClientRole) {
+          throw new UnauthorizedError('Unauthorized: You do not have access to the client portal');
+      }
+
       const roles = user.roles || [UserRole.CLIENT]
 
       const activeRole = UserRole.CLIENT
