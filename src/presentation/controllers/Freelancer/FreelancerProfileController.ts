@@ -9,6 +9,8 @@ import { IRequestFreelancerVerificationUsecase } from "../../../domain/interface
 import { HttpStatusCode } from "../../../shared/httpStatusCode";
 import { MESSAGES } from "../../../shared/messages";
 import { IUpdateFreelancerProfileUsecase } from '../../../domain/interfaces/usecaseInterface/freelancer/IUpdateFreelancerProfileUsecase';
+import { FreelancerMapper } from '../../../application/mappers/FreelanceMapper';
+
 
 @injectable()
 export class FreelancerProfileController {
@@ -34,8 +36,10 @@ export class FreelancerProfileController {
             
             return res.status(HttpStatusCode.CREATED).json({
                 success : true,
-                data : freelancer
+                data : freelancer ? FreelancerMapper.toDto(freelancer) : null
+
             })
+
         } catch (error : any) {
             return res.status(HttpStatusCode.BAD_REQUEST).json({
                 success : false,
@@ -59,8 +63,10 @@ export class FreelancerProfileController {
 
             return res.status(HttpStatusCode.OK).json({
                 success : true,
-                data : freelancer
+                data : freelancer ? FreelancerMapper.toDto(freelancer) : null
+
             })
+
         } catch (error : any) {
             return res.status(HttpStatusCode.INTERNAL_SERVER_ERROR).json({
                 success : false,
@@ -88,8 +94,10 @@ export class FreelancerProfileController {
             return res.status(HttpStatusCode.OK).json({
                 success : true,
                 message : MESSAGES.PROFILE_UPDATE_SUCCESS,
-                data : updatedFreelancer
+                data : updatedFreelancer ? FreelancerMapper.toDto(updatedFreelancer) : null
+
             })
+
 
 
         } catch (error: any) {
@@ -118,8 +126,10 @@ export class FreelancerProfileController {
             return res.status(HttpStatusCode.OK).json({
                 success : true,
                 message : "Verification request submitted",
-                data : freelancer
+                data : freelancer ? FreelancerMapper.toDto(freelancer) : null
+
             })
+
 
         } catch (error: any) {
             return res.status(HttpStatusCode.BAD_REQUEST).json({
