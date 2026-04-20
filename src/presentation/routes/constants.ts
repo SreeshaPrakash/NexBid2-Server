@@ -23,7 +23,8 @@ export enum AdminRoute {
   VERIFICATION_REQUESTS = '/verification-requests',
   APPROVE_VERIFICATION = '/approve-verification/:freelancerId',
   REJECT_VERIFICATION = '/reject-verification/:freelancerId',
-  GET_FREELANCER_PROFILE = '/freelancer-profile/:id'
+  GET_FREELANCER_PROFILE = '/freelancer-profile/:id',
+  LOGOUT = '/logout'
 
 }
 
