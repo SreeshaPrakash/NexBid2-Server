@@ -7,7 +7,9 @@ import { IGetBidByFreelancerUsecase } from '../../../domain/interfaces/usecaseIn
 import { IUpdateBidUsecase } from '../../../domain/interfaces/usecaseInterface/bid/IUpdateBidUsecase';
 import { IWithdrawBidUsecase } from '../../../domain/interfaces/usecaseInterface/bid/IWithdrawBidUsecase';
 import { AppError } from '../../../shared/errorConstants';
+import { BidMapper } from '../../../application/mappers/BidMapper';
 import { z } from 'zod';
+
 
 const PlaceBidSchema = z.object({
     bidAmount: z.number().positive("Bid amount must be positive"),
@@ -48,7 +50,8 @@ export class BidController {
             const { projectId } = req.params as { projectId: string };
             const freelancerId = req.user!.userId;
             const bid = await this._createBidUsecase.execute({ ...req.body, projectId, freelancerId });
-            res.status(HttpStatusCode.CREATED).json({ success: true, bid });
+            res.status(HttpStatusCode.CREATED).json({ success: true, bid: BidMapper.toDto(bid) });
+
         } catch (err) {
             this.handleError(res, err as Error);
         }
@@ -58,7 +61,8 @@ export class BidController {
         try {
             const { projectId } = req.params as { projectId: string };
             const bids = await this._getBidsByProjectUsecase.execute(projectId);
-            res.status(HttpStatusCode.OK).json({ success: true, bids });
+            res.status(HttpStatusCode.OK).json({ success: true, bids: BidMapper.toDtoList(bids) });
+
         } catch (err) {
             this.handleError(res, err as Error);
         }
@@ -69,7 +73,9 @@ export class BidController {
             const { projectId } = req.params as { projectId: string };
             const freelancerId = req.user!.userId;
             const bid = await this._getBidByFreelancerUsecase.execute({ projectId, freelancerId });
-            res.status(HttpStatusCode.OK).json({ success: true, bid });
+            res.status(HttpStatusCode.OK).json({ success: true, bid: bid ? BidMapper.toDto(bid) : null });
+
+
         } catch (err) {
             this.handleError(res, err as Error);
         }
@@ -90,7 +96,9 @@ export class BidController {
             const { bidId } = req.params as { bidId: string };
             const freelancerId = req.user!.userId;
             const bid = await this._updateBidUsecase.execute({ ...req.body, bidId, freelancerId });
-            res.status(HttpStatusCode.OK).json({ success: true, bid });
+            res.status(HttpStatusCode.OK).json({ success: true, bid: bid ? BidMapper.toDto(bid) : null });
+
+
         } catch (err) {
             this.handleError(res, err as Error);
         }
@@ -101,7 +109,9 @@ export class BidController {
             const { bidId } = req.params as { bidId: string };
             const freelancerId = req.user!.userId;
             const bid = await this._withdrawBidUsecase.execute({ bidId, freelancerId });
-            res.status(HttpStatusCode.OK).json({ success: true, bid });
+            res.status(HttpStatusCode.OK).json({ success: true, bid: bid ? BidMapper.toDto(bid) : null });
+
+
         } catch (err) {
             this.handleError(res, err as Error);
         }
