@@ -15,6 +15,10 @@ export class AdminRoutes {
             adminController.login(req, res)
         })
 
+        this.adminRoutes.post(AdminRoute.LOGOUT, (req, res) => {
+            adminController.logout(req, res)
+        })
+
         this.adminRoutes.get(AdminRoute.GET_ALL_USERS, (req, res) => {
             adminUserController.getAllUsers(req, res)
         })
