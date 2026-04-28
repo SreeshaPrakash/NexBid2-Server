@@ -14,6 +14,8 @@ import { IRefreshTokenUsecase } from "../../domain/interfaces/usecaseInterface/u
 import { logger } from '../../infrastructure/logging/logger';
 import { ISwitchRoleUsecase } from '../../domain/interfaces/usecaseInterface/user/ISwitchRoleUsecase';
 import { ILogoutUsecase } from '../../domain/interfaces/usecaseInterface/user/ILogoutUsecase';
+import { mapUserToDto } from '../../application/mappers/UserMapper';
+
 
 @injectable()
 export class UserController {
@@ -34,13 +36,15 @@ export class UserController {
     signup = async (req: Request, res: Response) => {
 
         try {
-            const user = await this._userRegisterUsecase.execute(req.body)
+            await this._userRegisterUsecase.execute(req.body)
             console.log('user registering, otp send')
             res.status(HttpStatusCode.CREATED).json({
                 success: true,
                 message: MESSAGES.REGISTRATION_SUCCESS,
-                user,
+                // signup usecase returns boolean, no user object available here
             })
+
+
 
         } catch (error: any) {
 
@@ -59,8 +63,10 @@ console.log('otp verifying')
             res.status(HttpStatusCode.OK).json({
                 success: true,
                 message: MESSAGES.OTP_VERIFY_SUCCESS,
-                user
+                user: mapUserToDto(user.user) // result is VerifyOtpResponse which has user field
             })
+
+
 
         } catch (error: any) {
             res.status(HttpStatusCode.BAD_REQUEST).json({
@@ -87,8 +93,10 @@ console.log('otp verifying')
                 success: true,
                 message: MESSAGES.LOGIN_SUCCESS,
                 accessToken,
-                user
+                user: mapUserToDto(user) // user was destructured from result
             })
+
+
 
         } catch (error: any) {
             res.status(HttpStatusCode.UNAUTHORIZED).json({
@@ -149,10 +157,12 @@ console.log('otp verifying')
             res.status(HttpStatusCode.OK).json({
                 success: true,
                 message: message,
-                user: result.user,
+                user: mapUserToDto(result.user),
                 accessToken: result.accessToken,
                 isNewUser: result.isNewUser
             })
+
+
 
         } catch (error: any) {
             res.status(HttpStatusCode.UNAUTHORIZED).json({
@@ -177,7 +187,7 @@ console.log('otp verifying')
                 success: true,
                 message: MESSAGES.OTP_RESEND_SUCCESS
             })
-        } catch (error) {
+        } catch {
             res.status(HttpStatusCode.BAD_REQUEST).json({
                 success: false,
                 message: MESSAGES.OTP_RESEND_FAILED
@@ -194,7 +204,7 @@ console.log('otp verifying')
                 success: true,
                 message: MESSAGES.PASSWORD_RESET_SUCCESS
             })
-        } catch (error) {
+        } catch {
             res.status(HttpStatusCode.BAD_REQUEST).json({
                 success: false,
                 message: MESSAGES.PASSWORD_RESET_FAILED
@@ -226,8 +236,9 @@ console.log('otp verifying')
                 success: true,
                 message: MESSAGES.TOKEN_REFRESH_SUCCESS,
                 accessToken: result.accessToken,
-                user: result.user
+                user: mapUserToDto(result.user)
             });
+
 
 
         } catch (error: any) {
@@ -251,13 +262,26 @@ console.log('otp verifying')
                 req.user.userId, requestedRole
             )
 
+            const { accessToken, refreshToken, hasProfile } = result;
+
+            res.cookie('refreshToken', refreshToken, {
+                httpOnly: true,
+                secure: process.env.NODE_ENV === 'production',
+                sameSite: 'strict',
+                maxAge: Number(process.env.REFRESH_TOKEN_COOKIE_MAX_AGE) || 7 * 24 * 60 * 60 * 1000
+            });
+
             return res.status(HttpStatusCode.OK).json({
                 success: true,
                 message: 'Role switched Successfuly',
-                data: result
+                data: {
+                    accessToken,
+                    hasProfile
+                }
             })
 
         } catch (error: any) {
+
             return res.status(HttpStatusCode.BAD_REQUEST).json({
                 success: false,
                 message: error.message || "Failed to switch role"

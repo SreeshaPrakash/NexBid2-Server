@@ -33,7 +33,7 @@ export class GoogleAuthService implements IGoogleAuthservice {
                     logger.info(`Google ID token verified:`, googleUserInfo.email)
                     return googleUserInfo
                 }
-            } catch (idTokenError) {
+            } catch {
                 logger.info(`ID token verification failed, trying as access token...`)
             }
 

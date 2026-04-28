@@ -19,6 +19,7 @@ export class LoginUsecase implements ILoginUsecase {
 
    async execute(LoginData: LoginDTO): Promise<LoginResponse> {
       const { email, password } = LoginData
+      
 
       if (!email || !password) {
          throw new ValidationError('Email and Password required')
@@ -41,12 +42,6 @@ export class LoginUsecase implements ILoginUsecase {
 
       if (!isPasswordValild) {
          throw new UnauthorizedError('Incorrect password')
-      }
-
-      // Role check for client-side login
-      const hasClientRole = user.roles?.includes(UserRole.CLIENT);
-      if (!hasClientRole) {
-          throw new UnauthorizedError('Unauthorized: You do not have access to the client portal');
       }
 
       const roles = user.roles || [UserRole.CLIENT]

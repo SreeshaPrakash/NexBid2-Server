@@ -17,8 +17,8 @@ export class OtpService implements IOtpService {
 
 
     async sendOtp(email: string): Promise<void> {
+        console.log("sendOtp function called");
         const otp = this.generateOtp()
-        console.log(`otp to input : ${otp}`)
         logger.info(` otp created `)
 
         await redis.set(`otp:${email}`, otp, 'EX', this.OTP_TTL)
@@ -41,8 +41,8 @@ export class OtpService implements IOtpService {
 
         })
         logger.info(`OTP send & stored for : ${email}`)
+        console.log(`otp to input : ${otp}`)
     }
-
 
 
     async verifyOtp(email: string, otp: string): Promise<boolean> {
