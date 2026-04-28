@@ -1,4 +1,4 @@
-import { injectable , inject} from 'tsyringe';
+import { injectable, inject } from 'tsyringe';
 
 import { IUserRepository } from "../../../domain/interfaces/repositoryInterface/user/IUserRepository";
 import { IClientProfileUsecase } from "../../../domain/interfaces/usecaseInterface/Client/IClientProfileUsecase";
@@ -7,9 +7,9 @@ import { mapUserToDto } from '../../mappers/UserMapper';
 
 @injectable()
 export class ClientProfileUsecase implements IClientProfileUsecase {
-    constructor (
-        @inject ('IUserRepository') private _userRepo : IUserRepository
-    ){}
+    constructor(
+        @inject('IUserRepository') private _userRepo: IUserRepository
+    ) { }
 
     async getClientProfile(userId: string): Promise<UserDto | null> {
         const user = await this._userRepo.findById(userId)
@@ -17,12 +17,6 @@ export class ClientProfileUsecase implements IClientProfileUsecase {
     }
 
 
-
-    // async updateClientProfile(userId: string, data: Partial<User>): Promise<User> {
-        
-    //     const updatedUser = await this._userRepo.update(userId, data)
-    //     return updatedUser
-    // }
 }
 
 
