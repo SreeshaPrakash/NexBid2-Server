@@ -1,9 +1,7 @@
-import { UserRepository } from './../../../infrastructure/respository/UserRepository';
 import { injectable, inject } from "tsyringe";
 import { IUpdateClientProfileUsecase } from "../../../domain/interfaces/usecaseInterface/Client/IClientUpdateProfileUsecase";
 import { User } from "../../../domain/entities/User";
 import { IUserRepository } from '../../../domain/interfaces/repositoryInterface/user/IUserRepository';
-import { mapUserToDto } from '../../mappers/UserMapper';
 
 
 @injectable()

@@ -1,6 +1,6 @@
 import { Freelancer } from "../../domain/entities/Freelancer";
 
-import { FreelancerDto } from "../dto/freelancer.dto";
+import { FreelancerDTO } from "../dto/freelancer.dto";
 
 export class FreelancerMapper {
   static toDomain(raw: any): Freelancer {
@@ -27,7 +27,7 @@ export class FreelancerMapper {
       totalReviews: raw.totalReviews,
       completedProjects: raw.completedProjects,
       experienceInYears: raw.experienceInYears,
-      hourlyRate: raw.hourlyRate,
+      experiences: raw.experiences || [],
       portfolio: raw.portfolio,
       previousWorks: raw.previousWorks,
       gitHubUrl: raw.gitHubUrl,
@@ -41,7 +41,7 @@ export class FreelancerMapper {
     };
   }
 
-  static toDto(freelancer: Freelancer): FreelancerDto {
+  static toDto(freelancer: Freelancer): FreelancerDTO {
     return {
       id: freelancer.id,
       userId: freelancer.userId,
@@ -61,19 +61,20 @@ export class FreelancerMapper {
       totalReviews: freelancer.totalReviews || 0,
       completedProjects: freelancer.completedProjects || 0,
       experienceInYears: freelancer.experienceInYears,
-      hourlyRate: freelancer.hourlyRate,
+      experiences: freelancer.experiences || [],
       portfolio: freelancer.portfolio,
       previousWorks: freelancer.previousWorks || [],
       gitHubUrl: freelancer.gitHubUrl,
       linkedinUrl: freelancer.linkedinUrl,
       isActive: freelancer.isActive,
       verificationStatus: freelancer.verificationStatus,
+      rejectionReason: freelancer.rejectionReason,
       createdAt: freelancer.createdAt,
       updatedAt: freelancer.updatedAt,
     };
   }
 
-  static toDtoList(freelancers: Freelancer[]): FreelancerDto[] {
+  static toDtoList(freelancers: Freelancer[]): FreelancerDTO[] {
     return freelancers.map(this.toDto);
   }
 }

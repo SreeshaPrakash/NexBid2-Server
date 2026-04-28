@@ -19,6 +19,7 @@ export class LoginUsecase implements ILoginUsecase {
 
    async execute(LoginData: LoginDTO): Promise<LoginResponse> {
       const { email, password } = LoginData
+      
 
       if (!email || !password) {
          throw new ValidationError('Email and Password required')

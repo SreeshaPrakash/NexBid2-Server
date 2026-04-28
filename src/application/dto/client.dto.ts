@@ -1,4 +1,3 @@
-import { UserRole } from "../../domain/entities/User";
 
 export interface UserDto {
   id: string;

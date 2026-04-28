@@ -1,5 +1,4 @@
 import { User } from "./User";
-import { FreelancerProfileStatus } from './../../shared/FreelancerConstants/FreelancerProfileStatus';
 
 export interface Freelancer extends User {
     id: string
@@ -9,7 +8,7 @@ export interface Freelancer extends User {
     skills: string[]
 
     experienceInYears: number
-    hourlyRate: number
+    experiences: { title: string, description: string }[]
     portfolio ?: string
     previousWorks ?: string[]
 

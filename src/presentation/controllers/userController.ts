@@ -36,7 +36,7 @@ export class UserController {
     signup = async (req: Request, res: Response) => {
 
         try {
-            const user = await this._userRegisterUsecase.execute(req.body)
+            await this._userRegisterUsecase.execute(req.body)
             console.log('user registering, otp send')
             res.status(HttpStatusCode.CREATED).json({
                 success: true,
@@ -187,7 +187,7 @@ console.log('otp verifying')
                 success: true,
                 message: MESSAGES.OTP_RESEND_SUCCESS
             })
-        } catch (error) {
+        } catch {
             res.status(HttpStatusCode.BAD_REQUEST).json({
                 success: false,
                 message: MESSAGES.OTP_RESEND_FAILED
@@ -204,7 +204,7 @@ console.log('otp verifying')
                 success: true,
                 message: MESSAGES.PASSWORD_RESET_SUCCESS
             })
-        } catch (error) {
+        } catch {
             res.status(HttpStatusCode.BAD_REQUEST).json({
                 success: false,
                 message: MESSAGES.PASSWORD_RESET_FAILED

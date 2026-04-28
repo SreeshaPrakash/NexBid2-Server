@@ -49,7 +49,7 @@ export class CreateFreelancerProfileUsecase implements ICreateFreelancerProfileU
             bio: data.bio,
             skills: data.skills,
             experienceInYears: data.experienceInYears,
-            hourlyRate: data.hourlyRate,
+            experiences: data.experiences ?? [],
             portfolio: data.portfolio ?? "",
             previousWorks: data.previousWorks ?? [],
             gitHubUrl: data.gitHubUrl ?? "",

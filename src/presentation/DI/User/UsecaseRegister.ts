@@ -32,6 +32,13 @@ import { GetOpenProjectsUsecase } from "../../../application/usecases/project/Ge
 import { GetProjectByIdUsecase } from "../../../application/usecases/project/GetProjectByIdUsecase";
 import { DeleteProjectUsecase } from "../../../application/usecases/project/DeleteProjectUsecase";
 import { GetSkillsUsecase } from "../../../application/usecases/skill/GetSkillsUsecase";
+import { GetClientDashboardStatsUsecase } from "../../../application/usecases/Client/GetClientDashboardStatsUsecase";
+import { GetFreelancerDashboardStatsUsecase } from "../../../application/usecases/Freelancer/GetFreelancerDashboardStatsUsecase";
+import { CreateBidUsecase } from "../../../application/usecases/bid/CreateBidUsecase";
+import { GetBidsByProjectUsecase } from "../../../application/usecases/bid/GetBidsByProjectUsecase";
+import { GetBidByFreelancerUsecase } from "../../../application/usecases/bid/GetBidByFreelancerUsecase";
+import { UpdateBidUsecase } from "../../../application/usecases/bid/UpdateBidUsecase";
+import { WithdrawBidUsecase } from "../../../application/usecases/bid/WithdrawBidUsecase";
 
 export class UsecaseRegistrar {
     static registerUsecase() {
@@ -90,6 +97,16 @@ export class UsecaseRegistrar {
         container.register("IDeleteProjectUsecase", { useClass: DeleteProjectUsecase })
 
         container.register("IGetSkillsUsecase", { useClass: GetSkillsUsecase })
+
+        container.register("IGetClientDashboardStatsUsecase", { useClass: GetClientDashboardStatsUsecase })
+        container.register("IGetFreelancerDashboardStatsUsecase", { useClass: GetFreelancerDashboardStatsUsecase })
+
+        // Bid Usecases
+        container.register("ICreateBidUsecase", { useClass: CreateBidUsecase })
+        container.register("IGetBidsByProjectUsecase", { useClass: GetBidsByProjectUsecase })
+        container.register("IGetBidByFreelancerUsecase", { useClass: GetBidByFreelancerUsecase })
+        container.register("IUpdateBidUsecase", { useClass: UpdateBidUsecase })
+        container.register("IWithdrawBidUsecase", { useClass: WithdrawBidUsecase })
     }
 }
 

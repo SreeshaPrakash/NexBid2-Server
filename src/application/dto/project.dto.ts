@@ -1,4 +1,4 @@
-import { ProjectStatus, ProjectVisibility } from "../../shared/projectConstants";
+import { ProjectVisibility } from "../../shared/projectConstants";
 
 // for both create and edit
 export interface ClientProjectDTO {

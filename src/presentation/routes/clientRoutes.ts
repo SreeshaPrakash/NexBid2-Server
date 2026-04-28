@@ -20,6 +20,10 @@ export class ClientRoutes {
         this.clientRoutes.patch(ClientRoute.CLIENTPROFILE, authMiddleware, clientOrFreelancer, (req, res) => {
             clientProfileController.updateClientProfile(req, res)
         })
+
+        this.clientRoutes.get(ClientRoute.DASHBOARD_STATS, authMiddleware, clientOrFreelancer, (req, res) => {
+            clientProfileController.getDashboardStats(req, res)
+        })
     }
 }
 

@@ -11,17 +11,11 @@ export class GetClientProjectsUsecase implements IGetClientProjectsUsecase {
         @inject("IProjectRepository") private projectRepo: IProjectRepository
     ) { }
 
-    async execute(clientId: string, status?: ProjectStatus): Promise<Project[]> {
+    async execute(clientId: string, page: number = 1, limit: number = 10, status?: ProjectStatus): Promise<{ projects: Project[], total: number }> {
         if (!clientId) {
             throw new ValidationError("Client ID is required");
         }
 
-        let projects = await this.projectRepo.findByClient(clientId);
-
-        if (status) {
-            projects = projects.filter(project => project.projectStatus === status);
-        }
-
-        return projects;
+        return await this.projectRepo.findByClient(clientId, page, limit, status);
     }
 }

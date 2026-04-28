@@ -1,6 +1,5 @@
 
 import { UserDto } from "../dto/client.dto";
-import { User } from "../../domain/entities/User";
 import { AdminUserListDto } from "../dto/admin.dto";
 
 export const mapUserToDto = (user: any): UserDto => {

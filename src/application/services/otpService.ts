@@ -17,6 +17,7 @@ export class OtpService implements IOtpService {
 
 
     async sendOtp(email: string): Promise<void> {
+        console.log("sendOtp function called");
         const otp = this.generateOtp()
         logger.info(` otp created `)
 

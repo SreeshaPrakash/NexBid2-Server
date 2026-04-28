@@ -2,7 +2,7 @@ import { injectable } from 'tsyringe';
 import mongoose from 'mongoose';
 import { BaseRepository } from './BaseRepository';
 import { Bid } from '../../domain/entities/Bid';
-import { BidModel, IBid } from '../database/BidModel';
+import { BidModel } from '../database/BidModel';
 import { IBidRepository } from '../../domain/interfaces/repositoryInterface/bid/IBidRepository';
 
 @injectable()

@@ -1,10 +1,7 @@
-
-
-
-
 import winston from "winston";
+import DailyRotateFile from "winston-daily-rotate-file";
 
-const { combine, colorize, timestamp, printf, errors, json } = winston.format
+const { combine, colorize, timestamp, printf, errors } = winston.format
 
 const logFormat = printf(({ level, message, timestamp, stack }) => {
     return ` ${timestamp} [${level}] : ${stack || message}`
@@ -12,13 +9,11 @@ const logFormat = printf(({ level, message, timestamp, stack }) => {
 
 export const logger = winston.createLogger({
     level: 'info',
-
     format: combine(
         timestamp({ format: "YYYY-MM-DD hh:mm:ss A" }),
         errors({ stack: true }),
         logFormat
     ),
-
     transports: [
         new winston.transports.Console({
             format: combine(
@@ -27,13 +22,23 @@ export const logger = winston.createLogger({
                 logFormat
             ),
         }),
-        new winston.transports.File({
-            filename: "logs/app.log",
-            level: "info"
+        // Application Logs: Rotate daily, keep for 14 days, max 20MB per file
+        new DailyRotateFile({
+            filename: 'logs/application-%DATE%.log',
+            datePattern: 'YYYY-MM-DD',
+            zippedArchive: true,
+            maxSize: '20m',
+            maxFiles: '14d',
+            level: 'info'
         }),
-        new winston.transports.File({
-            filename: "logs/error.log",
-            level: "error"
+        // Error Logs: Rotate daily, keep for 14 days, max 20MB per file
+        new DailyRotateFile({
+            filename: 'logs/error-%DATE%.log',
+            datePattern: 'YYYY-MM-DD',
+            zippedArchive: true,
+            maxSize: '20m',
+            maxFiles: '14d',
+            level: 'error'
         })
     ]
 })

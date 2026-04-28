@@ -5,7 +5,6 @@ import { IUpdateBidUsecase } from "../../../domain/interfaces/usecaseInterface/b
 import { IProjectRepository } from "../../../domain/interfaces/repositoryInterface/project/IProjectRepository";
 import { AppError } from "../../../shared/errorConstants";
 import { HttpStatusCode } from "../../../shared/httpStatusCode";
-import { ProjectStatus } from "../../../shared/projectConstants";
 import { UpdateBidDTO } from "../../dto/bid.dto";
 import { SocketService } from "../../services/SocketService";
 
@@ -31,7 +30,6 @@ export class UpdateBidUsecase implements IUpdateBidUsecase {
         //     throw new AppError(`Cannot update a bid that is already ${bid.status}.`, HttpStatusCode.BAD_REQUEST);
         // }
 
-        const project = await this._projectRepository.findById(bid.projectId);
 
         // const isExpired = project?.biddingDeadline ? new Date(project.biddingDeadline).getTime() < Date.now() : false;
 

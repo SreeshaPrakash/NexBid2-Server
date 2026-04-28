@@ -61,7 +61,14 @@ export class BidController {
         try {
             const { projectId } = req.params as { projectId: string };
             const bids = await this._getBidsByProjectUsecase.execute(projectId);
-            res.status(HttpStatusCode.OK).json({ success: true, bids: BidMapper.toDtoList(bids) });
+            res.status(HttpStatusCode.OK).json({ 
+                success: true, 
+                bids: BidMapper.toDtoList(bids),
+                debug: {
+                    projectId,
+                    count: bids.length
+                }
+            });
 
         } catch (err) {
             this.handleError(res, err as Error);

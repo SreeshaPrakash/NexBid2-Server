@@ -1,5 +1,4 @@
-
-
+/* eslint-disable @typescript-eslint/no-duplicate-enum-values */
 export enum UserRoute {
   SIGNUP = "/signup",
   VERIFY_OTP = '/verify-otp',
@@ -11,9 +10,7 @@ export enum UserRoute {
   REFRESH_TOKEN = '/refresh-token',
   SWITCH_ROLE = '/switch-role',
   LOGOUT = '/logout'
-
 };
-
 
 export enum AdminRoute {
   LOGIN = '/login',
@@ -25,38 +22,30 @@ export enum AdminRoute {
   REJECT_VERIFICATION = '/reject-verification/:freelancerId',
   GET_FREELANCER_PROFILE = '/freelancer-profile/:id',
   LOGOUT = '/logout'
-
 }
 
 export enum FreelancerRoute {
-
   FREELANCER_PROFILE = '/freelancerProfile',
-  VERIFY_REQUEST = '/verify-request'
-
+  VERIFY_REQUEST = '/verify-request',
+  DASHBOARD_STATS = '/dashboard-stats'
 }
 
 export enum ClientRoute {
   CLIENTPROFILE = '/clientprofile',
-  
+  DASHBOARD_STATS = '/dashboard-stats'
 }
 
 export enum ProjectRoute {
     CREATE = "/create",
     GET_CLIENT_PROJECTS = "/list",
-    // GET_OPEN_PROJECTS = "/marketplace",
     GET_OPEN_PROJECTS = "/openProjects",
     GET_PROJECT_BY_ID = "/:projectId",
     UPDATE = "/update/:projectId",
-    DELETE = "/:projectId"
+    DELETE = "/:projectId",
+    EXTEND = "/extend/:projectId",
+    FETCH_BIDS = "/:projectId/bids",
+    PLACE_BID = "/:projectId/bids",
+    MY_BID = "/:projectId/my-bid",
+    WITHDRAW_BID = "/bids/:bidId/withdraw",
+    UPDATE_BID = "/bids/:bidId"
 }
-
-
-// export enum ProjectRoute {
-//     CREATE = "/project",                // POST
-//     GET_CLIENT_PROJECTS = "/my-projects", // GET
-//     GET_OPEN_PROJECTS = "/marketplace",  // GET (Open + Public)
-//     GET_PROJECT_BY_ID = "/:projectId",   // GET
-//     UPDATE = "/update/:projectId",       // PATCH
-//     DELETE = "/delete/:projectId"        // DELETE
-
-// }

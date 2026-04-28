@@ -1,6 +1,6 @@
 import { Router } from "express"
 import { authMiddleware } from "../middlewares/authMiddleware"
-import { freelancerOnly, clientOrFreelancer } from "../middlewares/roleMiddleware"
+import { clientOrFreelancer } from "../middlewares/roleMiddleware"
 import { freelancerProfileController } from "../DI/User/Resolve"
 import { FreelancerRoute } from "./constants"
 
@@ -29,6 +29,10 @@ export class FreelancerRoutes {
 
         this.freelancerRoutes.patch(FreelancerRoute.FREELANCER_PROFILE, authMiddleware, clientOrFreelancer, (req, res) => {
             freelancerProfileController.UpdateFreelancerProfile(req, res)
+        })
+
+        this.freelancerRoutes.get(FreelancerRoute.DASHBOARD_STATS, authMiddleware, clientOrFreelancer, (req, res) => {
+            freelancerProfileController.getDashboardStats(req, res)
         })
 
     }

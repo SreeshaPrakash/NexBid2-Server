@@ -6,9 +6,6 @@ import { IApproveFreelancerVerificationUsecase } from '../../../domain/interface
 import { IGetAdminFreelancerProfileUsecase } from '../../../domain/interfaces/usecaseInterface/admin/IGetAdminFreelancerProfileUsecase';
 import { HttpStatusCode } from '../../../shared/httpStatusCode';
 import { Request, Response } from 'express';
-import { Http } from 'winston/lib/winston/transports';
-import { success } from 'zod';
-import { floatSafeRemainder } from 'zod/v4/core/util.cjs';
 
 
 @injectable()

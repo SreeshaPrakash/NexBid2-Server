@@ -34,14 +34,21 @@ export class EditProjectUsecase implements IEditProjectUsecase {
         }
 
         const updateData: Partial<Project> = {};
-        if (data.title !== undefined) updateData.title = data.title;
-        if (data.description !== undefined) updateData.description = data.description;
-        if (data.budget !== undefined) updateData.budget = data.budget;
-        if (data.attachments !== undefined) updateData.attachments = data.attachments;
-        if (data.skillsRequired !== undefined) updateData.skillsRequired = data.skillsRequired;
-        if (data.biddingDeadline !== undefined) updateData.biddingDeadline = new Date(data.biddingDeadline);
-        if (data.deadline !== undefined) updateData.deadline = data.deadline ? new Date(data.deadline) : null;
-        if (data.visibility !== undefined) updateData.visibility = data.visibility;
+        
+        // If it's a specific extension request
+        if ((data as any).isExtension) {
+            const currentDeadline = new Date(project.biddingDeadline);
+            updateData.biddingDeadline = new Date(currentDeadline.getTime() + 5 * 24 * 60 * 60 * 1000);
+        } else {
+            if (data.title !== undefined) updateData.title = data.title;
+            if (data.description !== undefined) updateData.description = data.description;
+            if (data.budget !== undefined) updateData.budget = data.budget;
+            if (data.attachments !== undefined) updateData.attachments = data.attachments;
+            if (data.skillsRequired !== undefined) updateData.skillsRequired = data.skillsRequired;
+            if (data.biddingDeadline !== undefined) updateData.biddingDeadline = new Date(data.biddingDeadline);
+            if (data.deadline !== undefined) updateData.deadline = data.deadline ? new Date(data.deadline) : null;
+            if (data.visibility !== undefined) updateData.visibility = data.visibility;
+        }
 
         const updatedProject = await this.projectRepo.update(data.projectId, updateData);
         return updatedProject!;
