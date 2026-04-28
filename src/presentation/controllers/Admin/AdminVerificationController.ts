@@ -6,14 +6,6 @@ import { IApproveFreelancerVerificationUsecase } from '../../../domain/interface
 import { IGetAdminFreelancerProfileUsecase } from '../../../domain/interfaces/usecaseInterface/admin/IGetAdminFreelancerProfileUsecase';
 import { HttpStatusCode } from '../../../shared/httpStatusCode';
 import { Request, Response } from 'express';
-<<<<<<< HEAD
-import { Http } from 'winston/lib/winston/transports';
-import { success } from 'zod';
-import { floatSafeRemainder } from 'zod/v4/core/util.cjs';
-import { FreelancerMapper } from '../../../application/mappers/FreelanceMapper';
-
-=======
->>>>>>> recovery-all-changes
 
 
 @injectable()
@@ -38,9 +30,8 @@ export class AdminVerificationController {
             res.status(HttpStatusCode.OK).json({
                 success : true,
                 message : "Freelancer profile got sucess",
-                data : FreelancerMapper.toDto(freelancer)
+                data : freelancer
             })
-
         } catch (error: any) {
             res.status(error.statusCode || HttpStatusCode.INTERNAL_SERVER_ERROR).json({
                 success : false,
@@ -56,9 +47,8 @@ export class AdminVerificationController {
             res.status(HttpStatusCode.OK).json({
                 success : true,
                 message : "Pending verification requests success",
-                data : FreelancerMapper.toDtoList(result)
+                data : result
             })
-
         } catch (error: any) {
             res.status(error.statusCode || HttpStatusCode.INTERNAL_SERVER_ERROR).json({
                 success : false,

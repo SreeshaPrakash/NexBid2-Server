@@ -5,12 +5,7 @@ import { Request, Response } from "express";
 import { HttpStatusCode } from "../../../shared/httpStatusCode";
 import { MESSAGES } from "../../../shared/messages";
 import { IUpdateClientProfileUsecase } from "../../../domain/interfaces/usecaseInterface/Client/IClientUpdateProfileUsecase";
-<<<<<<< HEAD
-import { mapUserToDto } from "../../../application/mappers/UserMapper";
-
-=======
 import { IGetClientDashboardStatsUsecase } from "../../../domain/interfaces/usecaseInterface/Client/IGetClientDashboardStatsUsecase";
->>>>>>> recovery-all-changes
 
 
 @injectable()
@@ -36,10 +31,8 @@ export class ClientProfileController {
 
             return res.status(HttpStatusCode.OK).json({
                 success : true,
-                data : client ? mapUserToDto(client) : null
-
+                data : client
             })
-
         } catch (error : any) {
             res.status(HttpStatusCode.INTERNAL_SERVER_ERROR).json({
                 success : false,
@@ -66,10 +59,8 @@ export class ClientProfileController {
             return res.status(HttpStatusCode.OK).json({
                 success : true,
                 message : MESSAGES.PROFILE_UPDATE_SUCCESS,
-                data : updatedClient ? mapUserToDto(updatedClient) : null
-
+                data : updatedClient
             })
-
 
         } catch (error : any) {
             res.status(HttpStatusCode.INTERNAL_SERVER_ERROR).json({

@@ -8,8 +8,6 @@ import { IGetProjectByIdUsecase } from '../../../domain/interfaces/usecaseInterf
 import { IEditProjectUsecase } from '../../../domain/interfaces/usecaseInterface/project/IEditProjectUsecase';
 import { IDeleteProjectUsecase } from '../../../domain/interfaces/usecaseInterface/project/IDeleteProjectUsecase';
 import { AppError } from '../../../shared/errorConstants';
-import { ProjectMapper } from '../../../application/mappers/ProjectMapper';
-
 
 @injectable()
 export class ProjectController {
@@ -26,8 +24,7 @@ export class ProjectController {
         try {
             const clientId = req.user!.userId;
             const project = await this._createProjectUsecase.execute({ ...req.body, clientId });
-            res.status(HttpStatusCode.CREATED).json({ success: true, project: ProjectMapper.toDto(project) });
-
+            res.status(HttpStatusCode.CREATED).json({ success: true, project });
         } catch (err) {
             this.handleError(res, err as Error);
         }
@@ -36,20 +33,11 @@ export class ProjectController {
     getClientProjects = async (req: Request, res: Response): Promise<void> => {
         try {
             const clientId = req.user!.userId;
-<<<<<<< HEAD
-            const projects = await this._getClientProjectsUsecase.execute(clientId);
-            res.status(HttpStatusCode.OK).json({ success: true, projects: ProjectMapper.toProjectList(projects) });
-
-
-
-
-=======
             const page = parseInt(req.query.page as string) || 1;
             const limit = parseInt(req.query.limit as string) || 4;
             const status = req.query.status as string;
             const { projects, total } = await this._getClientProjectsUsecase.execute(clientId, page, limit, status as any);
             res.status(HttpStatusCode.OK).json({ success: true, projects, total, debugLimit: limit });
->>>>>>> recovery-all-changes
         } catch (err) {
             this.handleError(res, err as Error);
         }
@@ -57,20 +45,11 @@ export class ProjectController {
 
     getOpenProjects = async (req: Request, res: Response): Promise<void> => {
         try {
-<<<<<<< HEAD
-            const projects = await this._getOpenProjectsUsecase.execute();
-            res.status(HttpStatusCode.OK).json({ success: true, projects: ProjectMapper.toProjectList(projects) });
-
-
-
-
-=======
             const userId = req.user?.userId;
             const page = parseInt(req.query.page as string) || 1;
             const limit = parseInt(req.query.limit as string) || 4;
             const { projects, total } = await this._getOpenProjectsUsecase.execute(userId, page, limit);
             res.status(HttpStatusCode.OK).json({ success: true, projects, total, debugLimit: limit });
->>>>>>> recovery-all-changes
         } catch (err) {
             this.handleError(res, err as Error);
         }
@@ -85,8 +64,7 @@ export class ProjectController {
             const userRole = activeRole as "client" | "freelancer";
 
             const project = await this._getProjectByIdUsecase.execute({ projectId, userId, userRole });
-            res.status(HttpStatusCode.OK).json({ success: true, project: ProjectMapper.toDto(project) });
-
+            res.status(HttpStatusCode.OK).json({ success: true, project });
         } catch (err) {
             this.handleError(res, err as Error);
         }
@@ -97,8 +75,7 @@ export class ProjectController {
             const { projectId } = req.params as { projectId: string };
             const clientId = req.user!.userId;
             const project = await this._editProjectUsecase.execute({ ...req.body, projectId, clientId });
-            res.status(HttpStatusCode.OK).json({ success: true, project: ProjectMapper.toDto(project) });
-
+            res.status(HttpStatusCode.OK).json({ success: true, project });
         } catch (err) {
             this.handleError(res, err as Error);
         }

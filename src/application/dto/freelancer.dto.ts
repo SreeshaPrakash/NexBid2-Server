@@ -34,11 +34,7 @@ export interface UpdateFreelancerProfileDTO {
   profileImage ?: string
 }
 
-<<<<<<< HEAD
-export interface FreelancerDto {
-=======
 export interface FreelancerDTO {
->>>>>>> recovery-all-changes
   id: string;
   userId: string;
   name: string;
@@ -57,20 +53,6 @@ export interface FreelancerDTO {
   totalReviews: number;
   completedProjects: number;
   experienceInYears: number;
-<<<<<<< HEAD
-  hourlyRate: number;
-  portfolio?: string;
-  previousWorks?: string[];
-  gitHubUrl?: string;
-  linkedinUrl?: string;
-  isActive: boolean;
-  verificationStatus: string;
-  createdAt: Date;
-  updatedAt: Date;
-}
-
-
-=======
   experiences: { title: string; description: string }[];
   portfolio?: string;
   previousWorks: string[];
@@ -85,7 +67,6 @@ export interface FreelancerDTO {
 
 
 
->>>>>>> recovery-all-changes
 
 
 

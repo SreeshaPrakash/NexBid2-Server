@@ -8,12 +8,7 @@ import { IRequestFreelancerVerificationUsecase } from "../../../domain/interface
 import { HttpStatusCode } from "../../../shared/httpStatusCode";
 import { MESSAGES } from "../../../shared/messages";
 import { IUpdateFreelancerProfileUsecase } from '../../../domain/interfaces/usecaseInterface/freelancer/IUpdateFreelancerProfileUsecase';
-<<<<<<< HEAD
-import { FreelancerMapper } from '../../../application/mappers/FreelanceMapper';
-
-=======
 import { IGetFreelancerDashboardStatsUsecase } from '../../../domain/interfaces/usecaseInterface/freelancer/IGetFreelancerDashboardStatsUsecase';
->>>>>>> recovery-all-changes
 
 @injectable()
 export class FreelancerProfileController {
@@ -40,14 +35,8 @@ export class FreelancerProfileController {
             
             return res.status(HttpStatusCode.CREATED).json({
                 success : true,
-<<<<<<< HEAD
-                data : freelancer ? FreelancerMapper.toDto(freelancer) : null
-
-=======
                 data : FreelancerMapper.toDto(freelancer)
->>>>>>> recovery-all-changes
             })
-
         } catch (error : any) {
             return res.status(HttpStatusCode.BAD_REQUEST).json({
                 success : false,
@@ -72,12 +61,7 @@ export class FreelancerProfileController {
             return res.status(HttpStatusCode.OK).json({
                 success : true,
                 data : freelancer ? FreelancerMapper.toDto(freelancer) : null
-<<<<<<< HEAD
-
-=======
->>>>>>> recovery-all-changes
             })
-
         } catch (error : any) {
             return res.status(HttpStatusCode.INTERNAL_SERVER_ERROR).json({
                 success : false,
@@ -105,14 +89,8 @@ export class FreelancerProfileController {
             return res.status(HttpStatusCode.OK).json({
                 success : true,
                 message : MESSAGES.PROFILE_UPDATE_SUCCESS,
-<<<<<<< HEAD
-                data : updatedFreelancer ? FreelancerMapper.toDto(updatedFreelancer) : null
-
-=======
                 data : FreelancerMapper.toDto(updatedFreelancer)
->>>>>>> recovery-all-changes
             })
-
 
 
         } catch (error: any) {
@@ -141,14 +119,8 @@ export class FreelancerProfileController {
             return res.status(HttpStatusCode.OK).json({
                 success : true,
                 message : "Verification request submitted",
-<<<<<<< HEAD
-                data : freelancer ? FreelancerMapper.toDto(freelancer) : null
-
-=======
                 data : FreelancerMapper.toDto(freelancer)
->>>>>>> recovery-all-changes
             })
-
 
         } catch (error: any) {
             return res.status(HttpStatusCode.BAD_REQUEST).json({
