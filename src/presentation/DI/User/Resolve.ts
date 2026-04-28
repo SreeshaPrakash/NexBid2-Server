@@ -9,6 +9,7 @@ import { FreelancerProfileController } from "../../controllers/Freelancer/Freela
 import { ClientProfileController } from './../../controllers/Client/ClientProfileController';
 import { AdminVerificationController } from './../../controllers/Admin/AdminVerificationController';
 import { ProjectController } from "../../controllers/Project/ProjectController";
+import { BidController } from "../../controllers/Bid/BidController";
 import { SkillController } from "../../controllers/SkillController";
 
 DIContainer.init()
@@ -26,5 +27,7 @@ export const clientProfileController = container.resolve(ClientProfileController
 export const adminVerificationController = container.resolve(AdminVerificationController)
 
 export const projectController = container.resolve(ProjectController)
+
+export const bidController = container.resolve(BidController)
 
 export const skillController = container.resolve(SkillController)

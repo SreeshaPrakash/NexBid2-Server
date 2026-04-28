@@ -1,13 +1,12 @@
 
 import { UserDto } from "../dto/client.dto";
-import { User } from "../../domain/entities/User";
 import { AdminUserListDto } from "../dto/admin.dto";
 
-export const mapUserToDto = (user: User): UserDto => {
+export const mapUserToDto = (user: any): UserDto => {
   const roles = user.roles ?? [];
 
   return {
-    id: user.id,
+    id: user.id || user._id?.toString(),
     name: user.name,
     email: user.email,
     phone: user.phone,
@@ -17,8 +16,8 @@ export const mapUserToDto = (user: User): UserDto => {
     role: roles[0],
 
     status: user.isBlocked ? "block" : "active",
-    isEmailVerified: user.isEmailVerified,
-    isBlocked: user.isBlocked,
+    isEmailVerified: user.isEmailVerified ?? false,
+    isBlocked: user.isBlocked ?? false,
 
     profileImage: user.profileImage,
 
@@ -29,13 +28,13 @@ export const mapUserToDto = (user: User): UserDto => {
   };
 };
 
-export const mapUsersToDto = (users: User[]): UserDto[] =>
+export const mapUsersToDto = (users: any[]): UserDto[] =>
   users.map(mapUserToDto);
 
 export const mapUserToAdminListDto = (
-  user: User
+  user: any
 ): AdminUserListDto => ({
-  id: user.id,
+  id: user.id || user._id?.toString(),
   name: user.name,
   email: user.email,
   roles: user.roles ?? [],
@@ -45,6 +44,7 @@ export const mapUserToAdminListDto = (
 });
 
 export const mapUsersToAdminListDTO = (
-  users: User[]
+  users: any[]
 ): AdminUserListDto[] =>
   users.map(mapUserToAdminListDto);
+

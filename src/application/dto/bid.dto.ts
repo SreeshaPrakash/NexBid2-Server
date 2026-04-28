@@ -1,4 +1,12 @@
-export interface Bid {
+export interface UpdateBidDTO {
+    bidId: string;
+    freelancerId: string;
+    bidAmount?: number;
+    deliveryTime?: number;
+    message?: string;
+}
+
+export interface BidDto {
     id: string;
     projectId: string;
     freelancerId: string;
@@ -11,3 +19,4 @@ export interface Bid {
     createdAt: Date;
     updatedAt: Date;
 }
+

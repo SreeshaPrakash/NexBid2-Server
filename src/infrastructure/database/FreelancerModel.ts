@@ -1,4 +1,3 @@
-
 import mongoose, { Schema } from "mongoose";
 
 export interface IFreelancer extends Document {
@@ -7,7 +6,7 @@ export interface IFreelancer extends Document {
     bio: string;
     skills: string[]
     experienceInYears: number
-    hourlyRate: number
+    experiences: { title: string, description: string }[]
     rating: number
     totalReviews: number
     completedProjects: number
@@ -47,10 +46,10 @@ const FreelancerSchema = new Schema<IFreelancer>(
             type: Number,
             default: 0,
         },
-        hourlyRate: {
-            type: Number,
-            default: 0,
-        },
+        experiences: [{
+            title: { type: String, required: true },
+            description: { type: String, required: true }
+        }],
         rating: {
             type: Number,
             default: 0,

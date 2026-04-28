@@ -3,7 +3,7 @@ export interface CreateFreelancerProfileDTO {
   bio: string
   skills: string[]
   experienceInYears: number
-  hourlyRate: number
+  experiences: { title: string; description: string }[]
   portfolio?: string
   gitHubUrl?: string
   linkedinUrl?: string
@@ -21,7 +21,7 @@ export interface UpdateFreelancerProfileDTO {
   bio?: string
   skills?: string[]
   experienceInYears?: number
-  hourlyRate?: number
+  experiences?: { title: string; description: string }[]
   portfolio?: string
   gitHubUrl?: string
   linkedinUrl?: string
@@ -34,7 +34,11 @@ export interface UpdateFreelancerProfileDTO {
   profileImage ?: string
 }
 
+<<<<<<< HEAD
 export interface FreelancerDto {
+=======
+export interface FreelancerDTO {
+>>>>>>> recovery-all-changes
   id: string;
   userId: string;
   name: string;
@@ -53,6 +57,7 @@ export interface FreelancerDto {
   totalReviews: number;
   completedProjects: number;
   experienceInYears: number;
+<<<<<<< HEAD
   hourlyRate: number;
   portfolio?: string;
   previousWorks?: string[];
@@ -65,6 +70,22 @@ export interface FreelancerDto {
 }
 
 
+=======
+  experiences: { title: string; description: string }[];
+  portfolio?: string;
+  previousWorks: string[];
+  gitHubUrl?: string;
+  linkedinUrl?: string;
+  isActive: boolean;
+  verificationStatus: 'unverified' | 'pending' | 'verified' | 'rejected';
+  rejectionReason?: string;
+  createdAt?: Date;
+  updatedAt?: Date;
+}
+
+
+
+>>>>>>> recovery-all-changes
 
 
 

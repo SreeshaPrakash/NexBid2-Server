@@ -2,7 +2,6 @@ import { injectable , inject} from 'tsyringe';
 
 import { IUserRepository } from "../../../domain/interfaces/repositoryInterface/user/IUserRepository";
 import { IClientProfileUsecase } from "../../../domain/interfaces/usecaseInterface/Client/IClientProfileUsecase";
-import { User } from "../../../domain/entities/User";
 import { UserDto } from "../../dto/client.dto";
 import { mapUserToDto } from '../../mappers/UserMapper';
 

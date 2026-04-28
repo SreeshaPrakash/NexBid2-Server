@@ -14,6 +14,10 @@ import { logger } from './infrastructure/logging/logger';
 import cookieParser from "cookie-parser";
 
 import s3Routes from "./presentation/routes/s3Routes";   //s3 bucket route
+import { notFoundMiddleware } from "./presentation/middlewares/notFoundMiddleware";
+import { container } from "tsyringe";
+import { SocketService } from "./application/services/SocketService";
+
 
 
 export class App {
@@ -48,16 +52,23 @@ export class App {
         this.app.use('/api/project', new ProjectRoutes().projectRoutes)
         this.app.use("/api/skills", new SkillRoutes().skillRoutes)
         this.app.use("/api/s3", s3Routes);   
+
+        // 404 handler
+        this.app.use(notFoundMiddleware);
     }
+
 
     public async listen(): Promise<void> {
         const PORT = process.env.PORT || 3000
         await this.database.connect()
 
 
-        this.app.listen(PORT, () => {
+        const server = this.app.listen(PORT, () => {
             logger.info(`Nexbid server running on port , ${PORT}`)
         })
+
+        // Initialize Socket Server
+        container.resolve(SocketService).init(server);
     }
 }
 

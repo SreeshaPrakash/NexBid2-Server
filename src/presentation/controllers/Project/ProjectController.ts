@@ -36,12 +36,20 @@ export class ProjectController {
     getClientProjects = async (req: Request, res: Response): Promise<void> => {
         try {
             const clientId = req.user!.userId;
+<<<<<<< HEAD
             const projects = await this._getClientProjectsUsecase.execute(clientId);
             res.status(HttpStatusCode.OK).json({ success: true, projects: ProjectMapper.toProjectList(projects) });
 
 
 
 
+=======
+            const page = parseInt(req.query.page as string) || 1;
+            const limit = parseInt(req.query.limit as string) || 4;
+            const status = req.query.status as string;
+            const { projects, total } = await this._getClientProjectsUsecase.execute(clientId, page, limit, status as any);
+            res.status(HttpStatusCode.OK).json({ success: true, projects, total, debugLimit: limit });
+>>>>>>> recovery-all-changes
         } catch (err) {
             this.handleError(res, err as Error);
         }
@@ -49,12 +57,20 @@ export class ProjectController {
 
     getOpenProjects = async (req: Request, res: Response): Promise<void> => {
         try {
+<<<<<<< HEAD
             const projects = await this._getOpenProjectsUsecase.execute();
             res.status(HttpStatusCode.OK).json({ success: true, projects: ProjectMapper.toProjectList(projects) });
 
 
 
 
+=======
+            const userId = req.user?.userId;
+            const page = parseInt(req.query.page as string) || 1;
+            const limit = parseInt(req.query.limit as string) || 4;
+            const { projects, total } = await this._getOpenProjectsUsecase.execute(userId, page, limit);
+            res.status(HttpStatusCode.OK).json({ success: true, projects, total, debugLimit: limit });
+>>>>>>> recovery-all-changes
         } catch (err) {
             this.handleError(res, err as Error);
         }
@@ -64,10 +80,10 @@ export class ProjectController {
         try {
             const { projectId } = req.params as { projectId: string };
             const { userId, activeRole } = req.user!;
-            
+
             // Cast activeRole to the specific union type required by the use case
             const userRole = activeRole as "client" | "freelancer";
-            
+
             const project = await this._getProjectByIdUsecase.execute({ projectId, userId, userRole });
             res.status(HttpStatusCode.OK).json({ success: true, project: ProjectMapper.toDto(project) });
 
@@ -94,6 +110,17 @@ export class ProjectController {
             const clientId = req.user!.userId;
             await this._deleteProjectUsecase.execute({ projectId, clientId });
             res.status(HttpStatusCode.OK).json({ success: true, message: "Project deleted successfully" });
+        } catch (err) {
+            this.handleError(res, err as Error);
+        }
+    }
+
+    extendProject = async (req: Request, res: Response): Promise<void> => {
+        try {
+            const { projectId } = req.params as { projectId: string };
+            const clientId = req.user!.userId;
+            const project = await this._editProjectUsecase.execute({ projectId, clientId, isExtension: true } as any);
+            res.status(HttpStatusCode.OK).json({ success: true, project, message: "Project extended successfully" });
         } catch (err) {
             this.handleError(res, err as Error);
         }
