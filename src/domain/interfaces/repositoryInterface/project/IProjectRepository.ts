@@ -12,4 +12,8 @@ export interface IProjectRepository {
     update(projectId: string, data: Partial<Project>): Promise<Project>;
     
     delete(projectId: string): Promise<void>;
+
+    countActiveByClient(clientId: string): Promise<number>;
+
+    findRecommendedForFreelancer(skills: string[]): Promise<Project[]>;
 }

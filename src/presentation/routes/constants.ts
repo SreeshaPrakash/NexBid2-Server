@@ -29,15 +29,14 @@ export enum AdminRoute {
 }
 
 export enum FreelancerRoute {
-
   FREELANCER_PROFILE = '/freelancerProfile',
-  VERIFY_REQUEST = '/verify-request'
-
+  VERIFY_REQUEST = '/verify-request',
+  DASHBOARD_STATS = '/dashboard-stats'
 }
 
 export enum ClientRoute {
   CLIENTPROFILE = '/clientprofile',
-  
+  DASHBOARD_STATS = '/dashboard-stats'
 }
 
 export enum ProjectRoute {

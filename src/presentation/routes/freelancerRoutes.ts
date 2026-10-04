@@ -31,6 +31,10 @@ export class FreelancerRoutes {
             freelancerProfileController.UpdateFreelancerProfile(req, res)
         })
 
+        this.freelancerRoutes.get(FreelancerRoute.DASHBOARD_STATS, authMiddleware, clientOrFreelancer, (req, res) => {
+            freelancerProfileController.getDashboardStats(req, res)
+        })
+
     }
 }
 

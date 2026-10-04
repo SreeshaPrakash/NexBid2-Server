@@ -78,4 +78,24 @@ export class ProjectRepository extends BaseRepository<Project> implements IProje
     async delete(projectId: string): Promise<void> {
         await this.model.findByIdAndDelete(projectId).exec();
     }
+
+    async countActiveByClient(clientId: string): Promise<number> {
+        return await this.model.countDocuments({
+            clientId: new mongoose.Types.ObjectId(clientId),
+            projectStatus: { $in: [ProjectStatus.OPEN, ProjectStatus.IN_PROGRESS] },
+            isDeleted: false
+        }).exec();
+    }
+
+    async findRecommendedForFreelancer(skills: string[]): Promise<Project[]> {
+        const docs = await this.model.find({
+            projectStatus: ProjectStatus.OPEN,
+            visibility: ProjectVisibility.PUBLIC,
+            isDeleted: false,
+            skillsRequired: { $in: skills }
+        })
+        .limit(5)
+        .exec();
+        return docs.map(doc => this.toEntity(doc as IProject));
+    }
 }

@@ -3,6 +3,7 @@ import mongoose from 'mongoose';
 import { BaseRepository } from './BaseRepository';
 import { Bid } from '../../domain/entities/Bid';
 import { BidModel, IBid } from '../database/BidModel';
+import { ProjectModel } from '../database/ProjectModel';
 import { IBidRepository } from '../../domain/interfaces/repositoryInterface/bid/IBidRepository';
 
 @injectable()
@@ -101,8 +102,7 @@ export class BidRepository extends BaseRepository<Bid> implements IBidRepository
     }
 
     async countTotalBidsForClientProjects(clientId: string): Promise<number> {
-        const projectModel = mongoose.model('Project');
-        const clientProjectIds = await projectModel.find({
+        const clientProjectIds = await ProjectModel.find({
             clientId: new mongoose.Types.ObjectId(clientId),
             isDeleted: false
         }).select('_id').exec();

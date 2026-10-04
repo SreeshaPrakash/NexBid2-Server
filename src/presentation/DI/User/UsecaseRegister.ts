@@ -32,6 +32,8 @@ import { GetOpenProjectsUsecase } from "../../../application/usecases/project/Ge
 import { GetProjectByIdUsecase } from "../../../application/usecases/project/GetProjectByIdUsecase";
 import { DeleteProjectUsecase } from "../../../application/usecases/project/DeleteProjectUsecase";
 import { GetSkillsUsecase } from "../../../application/usecases/skill/GetSkillsUsecase";
+import { GetClientDashboardStatsUsecase } from "../../../application/usecases/Client/GetClientDashboardStatsUsecase";
+import { GetFreelancerDashboardStatsUsecase } from "../../../application/usecases/Freelancer/GetFreelancerDashboardStatsUsecase";
 
 export class UsecaseRegistrar {
     static registerUsecase() {
@@ -90,6 +92,9 @@ export class UsecaseRegistrar {
         container.register("IDeleteProjectUsecase", { useClass: DeleteProjectUsecase })
 
         container.register("IGetSkillsUsecase", { useClass: GetSkillsUsecase })
+
+        container.register("IGetClientDashboardStatsUsecase", { useClass: GetClientDashboardStatsUsecase })
+        container.register("IGetFreelancerDashboardStatsUsecase", { useClass: GetFreelancerDashboardStatsUsecase })
     }
 }
 
