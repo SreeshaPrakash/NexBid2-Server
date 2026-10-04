@@ -7,6 +7,8 @@ import { IGetUserByIdUsecase } from "../../../domain/interfaces/usecaseInterface
 import { IUpdateUserStatusUsecase } from "../../../domain/interfaces/usecaseInterface/admin/IUpdateUserStatusUsecase";
 import { HttpStatusCode } from "../../../shared/httpStatusCode";
 import { MESSAGES } from "../../../shared/messages";
+import { mapUsersToAdminListDTO, mapUserToAdminListDto } from "../../../application/mappers/UserMapper";
+
 
 @injectable()
 export class AdminUserController {
@@ -34,6 +36,8 @@ export class AdminUserController {
                 success: true,
                 ...result,
             })
+
+
         } catch (error: any) {
             return res.status(HttpStatusCode.INTERNAL_SERVER_ERROR).json({
                 success: false,
@@ -51,8 +55,10 @@ export class AdminUserController {
 
             return res.status(HttpStatusCode.OK).json({
                 success: true,
-                user,
+                user, // user is already mapped to UserDto by the usecase
             })
+
+
         } catch (error: any) {
             const statusCode = error.name === 'NotFoundError' ? 404 : 400
 

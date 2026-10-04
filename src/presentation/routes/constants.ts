@@ -7,7 +7,7 @@ export enum UserRoute {
   RESEND_OTP = '/resend-otp',
   GOOGLE_LOGIN = '/auth/google',
   FORGOT_PASSWORD = '/forgot-password',
-  RESET_PASSWORD = '/api/reset-password',
+  RESET_PASSWORD = '/reset-password',
   REFRESH_TOKEN = '/refresh-token',
   SWITCH_ROLE = '/switch-role',
   LOGOUT = '/logout'
@@ -23,7 +23,8 @@ export enum AdminRoute {
   VERIFICATION_REQUESTS = '/verification-requests',
   APPROVE_VERIFICATION = '/approve-verification/:freelancerId',
   REJECT_VERIFICATION = '/reject-verification/:freelancerId',
-  GET_FREELANCER_PROFILE = '/freelancer-profile/:id'
+  GET_FREELANCER_PROFILE = '/freelancer-profile/:id',
+  LOGOUT = '/logout'
 
 }
 

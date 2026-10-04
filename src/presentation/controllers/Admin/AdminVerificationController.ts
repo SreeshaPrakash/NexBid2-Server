@@ -9,6 +9,8 @@ import { Request, Response } from 'express';
 import { Http } from 'winston/lib/winston/transports';
 import { success } from 'zod';
 import { floatSafeRemainder } from 'zod/v4/core/util.cjs';
+import { FreelancerMapper } from '../../../application/mappers/FreelanceMapper';
+
 
 
 @injectable()
@@ -33,8 +35,9 @@ export class AdminVerificationController {
             res.status(HttpStatusCode.OK).json({
                 success : true,
                 message : "Freelancer profile got sucess",
-                data : freelancer
+                data : FreelancerMapper.toDto(freelancer)
             })
+
         } catch (error: any) {
             res.status(error.statusCode || HttpStatusCode.INTERNAL_SERVER_ERROR).json({
                 success : false,
@@ -50,8 +53,9 @@ export class AdminVerificationController {
             res.status(HttpStatusCode.OK).json({
                 success : true,
                 message : "Pending verification requests success",
-                data : result
+                data : FreelancerMapper.toDtoList(result)
             })
+
         } catch (error: any) {
             res.status(error.statusCode || HttpStatusCode.INTERNAL_SERVER_ERROR).json({
                 success : false,

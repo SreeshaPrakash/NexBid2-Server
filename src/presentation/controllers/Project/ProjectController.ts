@@ -8,6 +8,8 @@ import { IGetProjectByIdUsecase } from '../../../domain/interfaces/usecaseInterf
 import { IEditProjectUsecase } from '../../../domain/interfaces/usecaseInterface/project/IEditProjectUsecase';
 import { IDeleteProjectUsecase } from '../../../domain/interfaces/usecaseInterface/project/IDeleteProjectUsecase';
 import { AppError } from '../../../shared/errorConstants';
+import { ProjectMapper } from '../../../application/mappers/ProjectMapper';
+
 
 @injectable()
 export class ProjectController {
@@ -24,7 +26,8 @@ export class ProjectController {
         try {
             const clientId = req.user!.userId;
             const project = await this._createProjectUsecase.execute({ ...req.body, clientId });
-            res.status(HttpStatusCode.CREATED).json({ success: true, project });
+            res.status(HttpStatusCode.CREATED).json({ success: true, project: ProjectMapper.toDto(project) });
+
         } catch (err) {
             this.handleError(res, err as Error);
         }
@@ -34,7 +37,11 @@ export class ProjectController {
         try {
             const clientId = req.user!.userId;
             const projects = await this._getClientProjectsUsecase.execute(clientId);
-            res.status(HttpStatusCode.OK).json({ success: true, projects });
+            res.status(HttpStatusCode.OK).json({ success: true, projects: ProjectMapper.toProjectList(projects) });
+
+
+
+
         } catch (err) {
             this.handleError(res, err as Error);
         }
@@ -43,7 +50,11 @@ export class ProjectController {
     getOpenProjects = async (req: Request, res: Response): Promise<void> => {
         try {
             const projects = await this._getOpenProjectsUsecase.execute();
-            res.status(HttpStatusCode.OK).json({ success: true, projects });
+            res.status(HttpStatusCode.OK).json({ success: true, projects: ProjectMapper.toProjectList(projects) });
+
+
+
+
         } catch (err) {
             this.handleError(res, err as Error);
         }
@@ -58,7 +69,8 @@ export class ProjectController {
             const userRole = activeRole as "client" | "freelancer";
             
             const project = await this._getProjectByIdUsecase.execute({ projectId, userId, userRole });
-            res.status(HttpStatusCode.OK).json({ success: true, project });
+            res.status(HttpStatusCode.OK).json({ success: true, project: ProjectMapper.toDto(project) });
+
         } catch (err) {
             this.handleError(res, err as Error);
         }
@@ -69,7 +81,8 @@ export class ProjectController {
             const { projectId } = req.params as { projectId: string };
             const clientId = req.user!.userId;
             const project = await this._editProjectUsecase.execute({ ...req.body, projectId, clientId });
-            res.status(HttpStatusCode.OK).json({ success: true, project });
+            res.status(HttpStatusCode.OK).json({ success: true, project: ProjectMapper.toDto(project) });
+
         } catch (err) {
             this.handleError(res, err as Error);
         }

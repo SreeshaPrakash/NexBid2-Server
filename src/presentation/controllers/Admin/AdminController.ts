@@ -12,7 +12,7 @@ export class AdminController {
         @inject("IAdminLoginUsecase") private _adminLoginUsecase: IAdminLoginUsecase
     ) { }
 
-    login = async (req: Request, res: Response) => {
+    public async login(req: Request, res: Response): Promise<void> {
         try {
             const result = await this._adminLoginUsecase.execute(req.body)
 
@@ -29,6 +29,25 @@ export class AdminController {
         }
     }
 
+    public async logout(req: Request, res: Response): Promise<void> {
+        try {
+            res.clearCookie('refreshToken', {
+                httpOnly: true,
+                secure: process.env.NODE_ENV === 'production',
+                sameSite: 'strict',
+                path: '/'
+            });
 
+            res.status(HttpStatusCode.OK).json({
+                success: true,
+                message: 'Logged out successfully'
+            });
+        } catch (error: any) {
+            res.status(HttpStatusCode.INTERNAL_SERVER_ERROR).json({
+                success: false,
+                message: error.message || 'Logout failed'
+            });
+        }
+    }
 
 }

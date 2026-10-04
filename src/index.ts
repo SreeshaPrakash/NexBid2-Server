@@ -14,6 +14,7 @@ import { logger } from './infrastructure/logging/logger';
 import cookieParser from "cookie-parser";
 
 import s3Routes from "./presentation/routes/s3Routes";   //s3 bucket route
+import { notFoundMiddleware } from "./presentation/middlewares/notFoundMiddleware";
 
 
 export class App {
@@ -48,7 +49,11 @@ export class App {
         this.app.use('/api/project', new ProjectRoutes().projectRoutes)
         this.app.use("/api/skills", new SkillRoutes().skillRoutes)
         this.app.use("/api/s3", s3Routes);   
+
+        // 404 handler
+        this.app.use(notFoundMiddleware);
     }
+
 
     public async listen(): Promise<void> {
         const PORT = process.env.PORT || 3000

@@ -34,6 +34,37 @@ export interface UpdateFreelancerProfileDTO {
   profileImage ?: string
 }
 
+export interface FreelancerDto {
+  id: string;
+  userId: string;
+  name: string;
+  email: string;
+  roles: string[];
+  isBlocked: boolean;
+  isEmailVerified: boolean;
+  profileImage?: string;
+  phone?: string;
+  country?: string;
+  state?: string;
+  title: string;
+  bio: string;
+  skills: string[];
+  rating: number;
+  totalReviews: number;
+  completedProjects: number;
+  experienceInYears: number;
+  hourlyRate: number;
+  portfolio?: string;
+  previousWorks?: string[];
+  gitHubUrl?: string;
+  linkedinUrl?: string;
+  isActive: boolean;
+  verificationStatus: string;
+  createdAt: Date;
+  updatedAt: Date;
+}
+
+
 
 
 
