@@ -24,7 +24,7 @@ export class ClientProfileController {
             if(!req.user){
                 return res.status(HttpStatusCode.UNAUTHORIZED).json({
                     success : false,
-                    message : MESSAGES.RESOURCE_NOT_FOUND
+                    message : MESSAGES.AUTH_REQUIRED
                 })
             }
 
@@ -52,7 +52,7 @@ export class ClientProfileController {
             if(!req.user){
                 return res.status(HttpStatusCode.UNAUTHORIZED).json({
                     success : false,
-                    message : MESSAGES.RESOURCE_NOT_FOUND
+                    message : MESSAGES.AUTH_REQUIRED
                 })
             }
 
@@ -81,7 +81,7 @@ export class ClientProfileController {
             if (!req.user) {
                 return res.status(HttpStatusCode.UNAUTHORIZED).json({
                     success: false,
-                    message: MESSAGES.RESOURCE_NOT_FOUND
+                    message: MESSAGES.AUTH_REQUIRED
                 });
             }
 

@@ -1,6 +1,8 @@
 
 import "reflect-metadata"; //for tsyringe to read class
 
+import http from 'http';
+import { container } from 'tsyringe';
 import express, { Express } from 'express';
 import { ConnectDB } from './infrastructure/db/ConnectDb';
 import cors from "cors";
@@ -12,6 +14,7 @@ import { ProjectRoutes } from "./presentation/routes/ProjectRoutes";
 import { SkillRoutes } from "./presentation/routes/skillRoutes";
 import { logger } from './infrastructure/logging/logger';
 import cookieParser from "cookie-parser";
+import { SocketService } from './application/services/SocketService';
 
 import s3Routes from "./presentation/routes/s3Routes";   //s3 bucket route
 import { notFoundMiddleware } from "./presentation/middlewares/notFoundMiddleware";
@@ -56,13 +59,16 @@ export class App {
 
 
     public async listen(): Promise<void> {
-        const PORT = process.env.PORT || 3000
-        await this.database.connect()
+        const PORT = process.env.PORT || 3000;
+        await this.database.connect();
 
+        const server = http.createServer(this.app);
+        const socketService = container.resolve(SocketService);
+        socketService.init(server);
 
-        this.app.listen(PORT, () => {
-            logger.info(`Nexbid server running on port , ${PORT}`)
-        })
+        server.listen(PORT, () => {
+            logger.info(`Nexbid server running on port , ${PORT}`);
+        });
     }
 }
 
